@@ -33,10 +33,11 @@ width: 100%;
 padding: 1.75em 0;
 border-bottom: 1px solid lightgray;
 background: white;
+margin: 0 auto;
 }
 /* GRID */
 .row {
-margin: 0;
+margin: 0 auto;
 padding: 0;
 display: flex;
 flex-direction: row;
@@ -50,6 +51,7 @@ align-items: center;
 flex-grow: 1;
 flex-basis: 0;
 max-width: 100%;
+margin: 0 auto;
 }
 /* Calendar */
 .calendar {
@@ -120,7 +122,7 @@ border-right: none;
 }
 .calendar .body .cell .number {
 position: absolute;
-font-size: 82.5%;
+font-size: 72.5%;
 line-height: 1;
 top: .75em;
 right: .75em;

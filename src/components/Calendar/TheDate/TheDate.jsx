@@ -21,7 +21,7 @@ export function TheDate({ currentDate }) {
     const startDate = startOfMonth(monthStart);
 
     const lastDayOfThisMonth = getDate(lastDayOfMonth(currentDate));
-    const daysOfWeek = ['Mon', 'Sun', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const daysOfWeek = ['Sat', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sun'];
     const dateFormat = 'd';
     let days = [];
     let day = startDate;

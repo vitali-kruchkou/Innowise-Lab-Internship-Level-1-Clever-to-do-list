@@ -40,3 +40,8 @@
     transform: rotate(360deg);
   }
 }
+.selected {
+  border-radius: 30%;
+  background-color: #04083d;
+  color: white;
+}

@@ -1,7 +1,11 @@
 .App {
   text-align: center;
 }
-
+:focus {
+  outline-style: none;
+  outline-width: 0px !important;
+  outline-color: none !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

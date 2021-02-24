@@ -4,7 +4,7 @@ import { Link } from '@reach/router';
 import { signInWithGoogle } from '../../../lib/index';
 import { auth } from '../../../lib/index';
 import styled from 'styled-components';
-import { Form, Input } from 'antd';
+import { Form, Input, Divider } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 
@@ -31,46 +31,40 @@ const SignIn = () => {
     }
   };
 
-  const layout = {
-    labelCol: {
-      span: 8,
-    },
-    wrapperCol: {
-      span: 16,
-    },
-  };
-
   return (
     <>
       <S.Container>
-        <Form>
-          <S.Form {...layout}>
+        <S.Form>
+          <Form>
             <S.Title>Clever Todo List</S.Title>
+            <Divider />
+            <p>
+              Welcome to Clever Todo list.
+              <br />
+              Please login to your account
+            </p>
+            <Divider />
             {error !== null && <div>{error}</div>}
-            <S.FormLabel>
-              <Form.Item>
-                <Input
-                  type="email"
-                  name="userEmail"
-                  value={email}
-                  placeholder="Your email"
-                  id="userEmail"
-                  onChange={event => onChangeHandler(event)}
-                />
-              </Form.Item>
-            </S.FormLabel>
-            <S.FormLabel>
-              <Form.Item>
-                <Input.Password
-                  type="password"
-                  name="userPassword"
-                  value={password}
-                  placeholder="Your Password"
-                  id="userPassword"
-                  onChange={event => onChangeHandler(event)}
-                />
-              </Form.Item>
-            </S.FormLabel>
+            <Form.Item>
+              <Input
+                type="email"
+                name="userEmail"
+                value={email}
+                placeholder="Your email"
+                id="userEmail"
+                onChange={event => onChangeHandler(event)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input.Password
+                type="password"
+                name="userPassword"
+                value={password}
+                placeholder="Your Password"
+                id="userPassword"
+                onChange={event => onChangeHandler(event)}
+              />
+            </Form.Item>
             <Form.Item>
               <S.Button>
                 <button
@@ -78,11 +72,20 @@ const SignIn = () => {
                   onClick={event => {
                     signInWithEmailAndPasswordHandler(event, email, password);
                   }}>
-                  Sign in
+                  Login
                 </button>
               </S.Button>
+              <S.Links>
+                <Link to="signUp">
+                  <span>Sign up </span>
+                </Link>{' '}
+                <br />
+                <Link to="passwordReset">
+                  <span>Forgot Password?</span>
+                </Link>
+              </S.Links>
             </Form.Item>
-            <p>or</p>
+            <Divider plain>Or Login Using</Divider>
             <Form.Item>
               <S.Button>
                 <button
@@ -91,22 +94,12 @@ const SignIn = () => {
                     signInWithGoogle();
                   }}>
                   <FontAwesomeIcon icon={faGooglePlusG} />
-                  Sign in with Google
+                  <span>Google</span>
                 </button>
               </S.Button>
             </Form.Item>
-            <Form.Item>
-              <p>
-                Don't have an account ? <Link to="signUp">Sign up </Link> <br />{' '}
-                <Link
-                  to="passwordReset"
-                  className="text-blue-500 hover:text-blue-600">
-                  Forgot Password?
-                </Link>
-              </p>
-            </Form.Item>
-          </S.Form>
-        </Form>
+          </Form>
+        </S.Form>
       </S.Container>
     </>
   );
@@ -116,54 +109,83 @@ export default SignIn;
 
 const S = {
   Container: styled.div`
-    max-width: 750px;
+    // max-width: 750px;
+    // margin: 0 auto;
+    // margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
     margin: 0 auto;
-    margin-top: 50px;
+    height: 600px;
+    border-radius: 3px;
+    padding-top: 100px;
   `,
   Button: styled.div`
     width: 200px;
-    & > button {
-      width: 200px;
-    }
     & > .SignIn {
-      background-color: #12fc31;
+      width: 200px;
+      background: rgb(151, 11, 221);
+      background: linear-gradient(
+        90deg,
+        rgba(151, 11, 221, 1) 0%,
+        rgba(128, 11, 93, 1) 35%,
+        rgba(237, 120, 10, 1) 100%
+      );
       border: none;
       font-size: 18px;
       height: 30px;
       color: white;
+      transition: 0.4s linear;
+      border-radius: 10px 10px 10px 10px;
     }
     & > .SignIn:hover {
-      background-color: #24d53b;
+      background-color: #e1dfdf;
+      color: black;
       border: none;
     }
     & > .Google {
-      background-color: #3982ff;
-      color: white;
+      width: 200px;
+      background-color: white;
       border: none;
-      font-size: 18px;
-      height: 30px;
+      font-size: 15px;
+      height: 40px;
+      transition: 0.4s linear;
     }
     & > .Google:hover {
-      background-color: blue;
-      border: none;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    & > .Google > span {
+      margin-left: 10px;
     }
   `,
   Form: styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 400px;
-    margin: 0 auto;
-    align-items: center;
     text-align: center;
+    border: 1px solid black;
+    padding: 80px;
+    box-shadow: inset 0 0 0 1px #337ab7;
   `,
   Title: styled.span`
     font-size: 30px;
     font-style: italic;
   `,
-  FormLabel: styled.div`
+  // FormLabel: styled.div`
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   width: 300px;
+  // `,
+  Links: styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    margin: 20px 0;
+    & > Link {
+      color: black;
+    }
   `,
 };

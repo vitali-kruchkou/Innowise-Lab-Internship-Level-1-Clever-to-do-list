@@ -6,6 +6,8 @@ import {
   signInWithGoogle,
   generateUserDocument,
 } from '../../../lib/index';
+import styled from 'styled-components';
+import { Form, Input, Divider } from 'antd';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -46,81 +48,247 @@ const SignUp = () => {
     }
   };
 
+  //   return (
+  //     <div className="mt-8">
+  //       <h1 className="text-3xl mb-2 text-center font-bold">Sign Up</h1>
+  //       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
+  //         {error !== null && (
+  //           <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
+  //             {error}
+  //           </div>
+  //         )}
+  //         <form className="">
+  //           <label htmlFor="displayName" className="block">
+  //             Display Name:
+  //           </label>
+  //           <input
+  //             type="text"
+  //             className="my-1 p-1 w-full "
+  //             name="displayName"
+  //             value={displayName}
+  //             placeholder="E.g: Faruq"
+  //             id="displayName"
+  //             onChange={event => onChangeHandler(event)}
+  //           />
+  //           <label htmlFor="userEmail" className="block">
+  //             Email:
+  //           </label>
+  //           <input
+  //             type="email"
+  //             className="my-1 p-1 w-full"
+  //             name="userEmail"
+  //             value={email}
+  //             placeholder="E.g: faruq123@gmail.com"
+  //             id="userEmail"
+  //             onChange={event => onChangeHandler(event)}
+  //           />
+  //           <label htmlFor="userPassword" className="block">
+  //             Password:
+  //           </label>
+  //           <input
+  //             type="password"
+  //             className="mt-1 mb-3 p-1 w-full"
+  //             name="userPassword"
+  //             value={password}
+  //             placeholder="Your Password"
+  //             id="userPassword"
+  //             onChange={event => onChangeHandler(event)}
+  //           />
+  //           <button
+  //             className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
+  //             onClick={event => {
+  //               createUserWithEmailAndPasswordHandler(event, email, password);
+  //             }}>
+  //             Sign up
+  //           </button>
+  //         </form>
+  //         <p className="text-center my-3">or</p>
+  //         <button
+  //           onClick={() => {
+  //             try {
+  //               signInWithGoogle();
+  //             } catch (error) {
+  //               console.error('Error signing in with Google', error);
+  //             }
+  //           }}
+  //           className="bg-red-500 hover:bg-red-600 w-full py-2 text-white">
+  //           Sign In with Google
+  //         </button>
+  //         <p className="text-center my-3">
+  //           Already have an account?{' '}
+  //           <Link to="/" className="text-blue-500 hover:text-blue-600">
+  //             Sign in here
+  //           </Link>{' '}
+  //         </p>
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
+  // export default SignUp;
   return (
-    <div className="mt-8">
-      <h1 className="text-3xl mb-2 text-center font-bold">Sign Up</h1>
-      <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
-        {error !== null && (
-          <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
-            {error}
-          </div>
-        )}
-        <form className="">
-          <label htmlFor="displayName" className="block">
-            Display Name:
-          </label>
-          <input
-            type="text"
-            className="my-1 p-1 w-full "
-            name="displayName"
-            value={displayName}
-            placeholder="E.g: Faruq"
-            id="displayName"
-            onChange={event => onChangeHandler(event)}
-          />
-          <label htmlFor="userEmail" className="block">
-            Email:
-          </label>
-          <input
-            type="email"
-            className="my-1 p-1 w-full"
-            name="userEmail"
-            value={email}
-            placeholder="E.g: faruq123@gmail.com"
-            id="userEmail"
-            onChange={event => onChangeHandler(event)}
-          />
-          <label htmlFor="userPassword" className="block">
-            Password:
-          </label>
-          <input
-            type="password"
-            className="mt-1 mb-3 p-1 w-full"
-            name="userPassword"
-            value={password}
-            placeholder="Your Password"
-            id="userPassword"
-            onChange={event => onChangeHandler(event)}
-          />
-          <button
-            className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
-            onClick={event => {
-              createUserWithEmailAndPasswordHandler(event, email, password);
-            }}>
-            Sign up
-          </button>
-        </form>
-        <p className="text-center my-3">or</p>
-        <button
-          onClick={() => {
-            try {
-              signInWithGoogle();
-            } catch (error) {
-              console.error('Error signing in with Google', error);
-            }
-          }}
-          className="bg-red-500 hover:bg-red-600 w-full py-2 text-white">
-          Sign In with Google
-        </button>
-        <p className="text-center my-3">
-          Already have an account?{' '}
-          <Link to="/" className="text-blue-500 hover:text-blue-600">
-            Sign in here
-          </Link>{' '}
-        </p>
-      </div>
-    </div>
+    <>
+      <S.Container>
+        <S.Form>
+          <Form>
+            <S.Title>Sign Up</S.Title>
+            {error !== null && <div>{error}</div>}
+            <Form.Item>
+              <Input
+                type="text"
+                name="displayName"
+                value={displayName}
+                placeholder="E.g: Faruq"
+                id="displayName"
+                onChange={event => onChangeHandler(event)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input.Password
+                type="email"
+                name="userEmail"
+                value={email}
+                placeholder="E.g: faruq123@gmail.com"
+                id="userEmail"
+                onChange={event => onChangeHandler(event)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <Input.Password
+                type="password"
+                name="userPassword"
+                value={password}
+                placeholder="Your Password"
+                id="userPassword"
+                onChange={event => onChangeHandler(event)}
+              />
+            </Form.Item>
+            <Form.Item>
+              <S.Button>
+                <button
+                  className="SignUp"
+                  onClick={event => {
+                    createUserWithEmailAndPasswordHandler(
+                      event,
+                      email,
+                      password,
+                    );
+                  }}>
+                  Sign up
+                </button>
+              </S.Button>
+              <S.Links>
+                <p> Already have an account?</p>
+                <Link to="/" className="text-blue-500 hover:text-blue-600">
+                  Sign in
+                </Link>
+              </S.Links>
+            </Form.Item>
+            <Divider plain>Or Login Using</Divider>
+            <Form.Item>
+              <S.Button>
+                <button
+                  onClick={() => {
+                    try {
+                      signInWithGoogle();
+                    } catch (error) {
+                      console.error('Error signing in with Google', error);
+                    }
+                  }}
+                  className="bg-red-500 hover:bg-red-600 w-full py-2 text-white">
+                  Sign In with Google
+                </button>
+              </S.Button>
+            </Form.Item>
+          </Form>
+        </S.Form>
+      </S.Container>
+    </>
   );
 };
 
 export default SignUp;
+
+const S = {
+  Container: styled.div`
+    // max-width: 750px;
+    // margin: 0 auto;
+    // margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+    height: 600px;
+    border-radius: 3px;
+    padding-top: 100px;
+  `,
+  Button: styled.div`
+    width: 200px;
+    & > .SignUp {
+      width: 200px;
+      background: rgb(151, 11, 221);
+      background: linear-gradient(
+        90deg,
+        rgba(151, 11, 221, 1) 0%,
+        rgba(128, 11, 93, 1) 35%,
+        rgba(237, 120, 10, 1) 100%
+      );
+      border: none;
+      font-size: 18px;
+      height: 30px;
+      color: white;
+      transition: 0.4s linear;
+      border-radius: 10px 10px 10px 10px;
+    }
+    & > .SignUp:hover {
+      background-color: #e1dfdf;
+      color: black;
+      border: none;
+    }
+    & > .Google {
+      width: 200px;
+      background-color: white;
+      border: none;
+      font-size: 15px;
+      height: 40px;
+      transition: 0.4s linear;
+    }
+    & > .Google:hover {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    & > .Google > span {
+      margin-left: 10px;
+    }
+  `,
+  Form: styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid black;
+    padding: 80px;
+    box-shadow: inset 0 0 0 1px #337ab7;
+  `,
+  Title: styled.div`
+    font-size: 30px;
+    font-style: italic;
+    padding-bottom: 30px;
+  `,
+  // FormLabel: styled.div`
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   width: 300px;
+  // `,
+  Links: styled.div`
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-between;
+    margin: 20px 0;
+    & > Link {
+      color: black;
+    }
+  `,
+};

@@ -1,7 +1,11 @@
 .App {
   text-align: center;
 }
-
+:focus {
+  outline-style: none;
+  outline-width: 0px !important;
+  outline-color: none !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -35,4 +39,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+.selected {
+  border-radius: 30%;
+  background-color: #04083d;
+  color: white;
 }

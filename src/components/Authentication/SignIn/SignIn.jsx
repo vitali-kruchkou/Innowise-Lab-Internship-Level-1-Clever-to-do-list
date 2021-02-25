@@ -44,7 +44,7 @@ const SignIn = () => {
               Please login to your account
             </p>
             <Divider />
-            {error !== null && <div>{error}</div>}
+            {error !== null && <S.Error>{error}</S.Error>}
             <Form.Item>
               <Input
                 type="email"
@@ -77,7 +77,7 @@ const SignIn = () => {
               </S.Button>
               <S.Links>
                 <Link to="signUp">
-                  <span>Sign up </span>
+                  <span className="SignUp">Sign up </span>
                 </Link>{' '}
                 <br />
                 <Link to="passwordReset">
@@ -117,9 +117,9 @@ const S = {
     align-items: center;
     max-width: 400px;
     margin: 0 auto;
-    height: 600px;
+    height: 500px;
     border-radius: 3px;
-    padding-top: 100px;
+    padding-top: 20px;
   `,
   Button: styled.div`
     width: 200px;
@@ -137,7 +137,6 @@ const S = {
       height: 30px;
       color: white;
       transition: 0.4s linear;
-      border-radius: 10px 10px 10px 10px;
     }
     & > .SignIn:hover {
       background-color: #e1dfdf;
@@ -167,17 +166,15 @@ const S = {
     border: 1px solid black;
     padding: 80px;
     box-shadow: inset 0 0 0 1px #337ab7;
+    @media (max-width: 768px) {
+      box-shadow: none;
+      border: none;
+    }
   `,
   Title: styled.span`
     font-size: 30px;
     font-style: italic;
   `,
-  // FormLabel: styled.div`
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   width: 300px;
-  // `,
   Links: styled.div`
     display: flex;
     flex-direction: row;
@@ -187,5 +184,11 @@ const S = {
     & > Link {
       color: black;
     }
+    & > Link > .SignUp {
+      border: 1px solid black;
+    }
+  `,
+  Error: styled.span`
+    color: red;
   `,
 };

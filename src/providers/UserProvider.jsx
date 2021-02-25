@@ -1,29 +1,27 @@
-import React, { Component, createContext } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { auth, generateUserDocument } from '../lib';
 import PropTypes from 'prop-types';
 export const UserContext = createContext({ user: null });
 
-class UserProvider extends Component {
-  state = {
-    user: null,
-  };
+export function UserProvider(props) {
+  // state = {
+  //   user: null,
+  // };
 
-  componentDidMount = async () => {
-    auth.onAuthStateChanged(async userAuth => {
-      const user = await generateUserDocument(userAuth);
-      this.setState({ user });
-    });
-  };
+  const [user, setUser] = useState(null);
 
-  render() {
-    const { user } = this.state;
+  useEffect(() => {
+    return async () => {
+      auth.onAuthStateChanged(async userAuth => {
+        const user = await generateUserDocument(userAuth);
+        setUser(user);
+      });
+    };
+  }, []);
 
-    return (
-      <UserContext.Provider value={user}>
-        {this.props.children}
-      </UserContext.Provider>
-    );
-  }
+  return (
+    <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
+  );
 }
 
 export default UserProvider;

@@ -48,91 +48,13 @@ const SignUp = () => {
     }
   };
 
-  //   return (
-  //     <div className="mt-8">
-  //       <h1 className="text-3xl mb-2 text-center font-bold">Sign Up</h1>
-  //       <div className="border border-blue-400 mx-auto w-11/12 md:w-2/4 rounded py-8 px-4 md:px-8">
-  //         {error !== null && (
-  //           <div className="py-4 bg-red-600 w-full text-white text-center mb-3">
-  //             {error}
-  //           </div>
-  //         )}
-  //         <form className="">
-  //           <label htmlFor="displayName" className="block">
-  //             Display Name:
-  //           </label>
-  //           <input
-  //             type="text"
-  //             className="my-1 p-1 w-full "
-  //             name="displayName"
-  //             value={displayName}
-  //             placeholder="E.g: Faruq"
-  //             id="displayName"
-  //             onChange={event => onChangeHandler(event)}
-  //           />
-  //           <label htmlFor="userEmail" className="block">
-  //             Email:
-  //           </label>
-  //           <input
-  //             type="email"
-  //             className="my-1 p-1 w-full"
-  //             name="userEmail"
-  //             value={email}
-  //             placeholder="E.g: faruq123@gmail.com"
-  //             id="userEmail"
-  //             onChange={event => onChangeHandler(event)}
-  //           />
-  //           <label htmlFor="userPassword" className="block">
-  //             Password:
-  //           </label>
-  //           <input
-  //             type="password"
-  //             className="mt-1 mb-3 p-1 w-full"
-  //             name="userPassword"
-  //             value={password}
-  //             placeholder="Your Password"
-  //             id="userPassword"
-  //             onChange={event => onChangeHandler(event)}
-  //           />
-  //           <button
-  //             className="bg-green-400 hover:bg-green-500 w-full py-2 text-white"
-  //             onClick={event => {
-  //               createUserWithEmailAndPasswordHandler(event, email, password);
-  //             }}>
-  //             Sign up
-  //           </button>
-  //         </form>
-  //         <p className="text-center my-3">or</p>
-  //         <button
-  //           onClick={() => {
-  //             try {
-  //               signInWithGoogle();
-  //             } catch (error) {
-  //               console.error('Error signing in with Google', error);
-  //             }
-  //           }}
-  //           className="bg-red-500 hover:bg-red-600 w-full py-2 text-white">
-  //           Sign In with Google
-  //         </button>
-  //         <p className="text-center my-3">
-  //           Already have an account?{' '}
-  //           <Link to="/" className="text-blue-500 hover:text-blue-600">
-  //             Sign in here
-  //           </Link>{' '}
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
-  // export default SignUp;
   return (
     <>
       <S.Container>
         <S.Form>
           <Form>
             <S.Title>Sign Up</S.Title>
-            {error !== null && <div>{error}</div>}
+            {error !== null && <S.Error>{error}</S.Error>}
             <Form.Item>
               <Input
                 type="text"
@@ -144,7 +66,7 @@ const SignUp = () => {
               />
             </Form.Item>
             <Form.Item>
-              <Input.Password
+              <Input
                 type="email"
                 name="userEmail"
                 value={email}
@@ -184,7 +106,7 @@ const SignUp = () => {
                 </Link>
               </S.Links>
             </Form.Item>
-            <Divider plain>Or Login Using</Divider>
+            <Divider plain>Or SignUp Using</Divider>
             <Form.Item>
               <S.Button>
                 <button
@@ -219,9 +141,9 @@ const S = {
     align-items: center;
     max-width: 400px;
     margin: 0 auto;
-    height: 600px;
+    height: 500px;
     border-radius: 3px;
-    padding-top: 100px;
+    padding-top: 20px;
   `,
   Button: styled.div`
     width: 200px;
@@ -239,7 +161,6 @@ const S = {
       height: 30px;
       color: white;
       transition: 0.4s linear;
-      border-radius: 10px 10px 10px 10px;
     }
     & > .SignUp:hover {
       background-color: #e1dfdf;
@@ -269,18 +190,16 @@ const S = {
     border: 1px solid black;
     padding: 80px;
     box-shadow: inset 0 0 0 1px #337ab7;
+    @media (max-width: 768px) {
+      box-shadow: none;
+      border: none;
+    }
   `,
   Title: styled.div`
     font-size: 30px;
     font-style: italic;
     padding-bottom: 30px;
   `,
-  // FormLabel: styled.div`
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   width: 300px;
-  // `,
   Links: styled.div`
     display: flex;
     flex-direction: row;
@@ -290,5 +209,8 @@ const S = {
     & > Link {
       color: black;
     }
+  `,
+  Error: styled.span`
+    color: red;
   `,
 };

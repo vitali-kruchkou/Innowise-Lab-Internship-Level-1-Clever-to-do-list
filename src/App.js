@@ -1,9 +1,13 @@
 import React from 'react';
-import Calendar from './components/Calendar/Calendar';
 import './App.css';
-
+import UserProvider from './providers/UserProvider';
+import Authentication from './components/Authentication/Authentication';
 function App() {
-  return <Calendar />;
+  return (
+    <UserProvider>
+      <Authentication />
+    </UserProvider>
+  );
 }
 
 export default App;

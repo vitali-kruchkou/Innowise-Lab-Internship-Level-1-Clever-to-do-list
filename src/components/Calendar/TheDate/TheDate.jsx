@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import PropTypes from 'prop-types';
@@ -11,12 +11,14 @@ import {
   lastDayOfMonth,
   startOfMonth,
 } from 'date-fns';
+import { DateContext } from '../../../providers/DateProvider';
 
 export function TheDate({ currentDate }) {
   // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const Cells = () => {
+    const [date, setDate] = useContext(DateContext);
     const monthStart = startOfMonth(currentDate);
     const startDate = startOfMonth(monthStart);
 
@@ -26,6 +28,13 @@ export function TheDate({ currentDate }) {
     let days = [];
     let day = startDate;
     let formattedDate = '';
+
+    const onDateClick = day => {
+      setSelectedDate(day);
+      setDate(day);
+      console.log(date);
+      console.log(day);
+    };
 
     for (let i = 0; i < lastDayOfThisMonth; i++) {
       formattedDate = format(day, dateFormat);
@@ -48,11 +57,6 @@ export function TheDate({ currentDate }) {
       day = addDays(day, 1);
     }
     return days;
-  };
-
-  const onDateClick = day => {
-    setSelectedDate(day);
-    console.log(day);
   };
 
   return (

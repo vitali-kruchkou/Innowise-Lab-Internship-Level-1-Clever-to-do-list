@@ -1,10 +1,8 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { addMonths, format, subMonths } from 'date-fns';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 export function Months({ currentDate, setCurrentDate }) {
   const dateFormat = 'MMMM yyyy';
 
@@ -19,13 +17,14 @@ export function Months({ currentDate, setCurrentDate }) {
   return (
     <S.Header>
       <S.HeaderCellAnlge onClick={prevMonth}>
-        <FontAwesomeIcon icon={faAngleLeft} />
+        {/* <FontAwesomeIcon icon={faAngleLeft} /> */}
+        <LeftOutlined />
       </S.HeaderCellAnlge>
       <S.HeaderCell>
         <span>{format(currentDate, dateFormat)}</span>
       </S.HeaderCell>
       <S.HeaderCellAnlge onClick={nextMonth}>
-        <FontAwesomeIcon icon={faAngleRight} />
+        <RightOutlined />
       </S.HeaderCellAnlge>
     </S.Header>
   );

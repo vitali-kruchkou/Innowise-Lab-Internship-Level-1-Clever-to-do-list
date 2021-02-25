@@ -1,38 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React, { useContext } from 'react';
-import { UserContext } from '../../../providers/UserProvider';
-import { navigate } from '@reach/router';
+import React from 'react';
+import Calendar from '../../Calendar/Calendar';
 import { auth } from '../../../lib/index';
+import AddTodo from '../../Todos/AddTodo/AddTodo';
+import ListTodo from '../../Todos/ListTodo/ListTodo';
+import { useHistory } from 'react-router-dom';
 const ProfilePage = () => {
-  const user = useContext(UserContext);
-  const { photoURL, displayName, email } = user;
-  console.log(user);
+  const history = useHistory();
 
   return (
-    <div>
-      <div>
-        <div
-          style={{
-            background: `url(${
-              photoURL ||
-              'https://res.cloudinary.com/dqcsk8rsc/image/upload/v1577268053/avatar-1-bitmoji_upgwhc.png'
-            })  no-repeat center center`,
-            backgroundSize: 'cover',
-            height: '200px',
-            width: '200px',
-          }}></div>
-        <div>
-          <h2>{displayName}</h2>
-          <h3>{email}</h3>
-        </div>
-      </div>
+    <>
+      {console.log(history)}
       <button
         onClick={() => {
           auth.signOut();
         }}>
         Sign out
       </button>
-    </div>
+      <Calendar />
+      <AddTodo />
+      <ListTodo history={history} />
+    </>
   );
 };
 

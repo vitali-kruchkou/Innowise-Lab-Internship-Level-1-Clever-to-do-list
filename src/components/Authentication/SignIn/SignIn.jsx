@@ -4,9 +4,14 @@ import { Link } from '@reach/router';
 import { signInWithGoogle } from '../../../lib/index';
 import { auth } from '../../../lib/index';
 import styled from 'styled-components';
-import { Form, Input, Divider } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
+import { Form, Input, Divider, Tooltip } from 'antd';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
+import {
+  UserOutlined,
+  GoogleOutlined,
+  InfoCircleOutlined,
+} from '@ant-design/icons';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -53,6 +58,12 @@ const SignIn = () => {
                 placeholder="Your email"
                 id="userEmail"
                 onChange={event => onChangeHandler(event)}
+                prefix={<UserOutlined />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
@@ -63,6 +74,11 @@ const SignIn = () => {
                 placeholder="Your Password"
                 id="userPassword"
                 onChange={event => onChangeHandler(event)}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
@@ -93,7 +109,7 @@ const SignIn = () => {
                   onClick={() => {
                     signInWithGoogle();
                   }}>
-                  <FontAwesomeIcon icon={faGooglePlusG} />
+                  <GoogleOutlined />
                   <span>Google</span>
                 </button>
               </S.Button>

@@ -2,7 +2,6 @@
 import React, { useState, useContext } from 'react';
 import { auth } from '../../../lib/index';
 // eslint-disable-next-line no-unused-vars
-import { UserContext } from '../../../providers/UserProvider';
 import { Link } from '@reach/router';
 import styled from 'styled-components';
 import { Form, Input } from 'antd';

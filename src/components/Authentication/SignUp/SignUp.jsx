@@ -7,7 +7,8 @@ import {
   generateUserDocument,
 } from '../../../lib/index';
 import styled from 'styled-components';
-import { Form, Input, Divider } from 'antd';
+import { Form, Input, Divider, Tooltip } from 'antd';
+import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -63,6 +64,12 @@ const SignUp = () => {
                 placeholder="E.g: Faruq"
                 id="displayName"
                 onChange={event => onChangeHandler(event)}
+                prefix={<UserOutlined />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
@@ -73,6 +80,12 @@ const SignUp = () => {
                 placeholder="E.g: faruq123@gmail.com"
                 id="userEmail"
                 onChange={event => onChangeHandler(event)}
+                prefix={<UserOutlined />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
@@ -83,6 +96,11 @@ const SignUp = () => {
                 placeholder="Your Password"
                 id="userPassword"
                 onChange={event => onChangeHandler(event)}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>

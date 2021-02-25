@@ -101,9 +101,7 @@ const SignUp = () => {
               </S.Button>
               <S.Links>
                 <p> Already have an account?</p>
-                <Link to="/" className="text-blue-500 hover:text-blue-600">
-                  Sign in
-                </Link>
+                <Link to="/">Sign in</Link>
               </S.Links>
             </Form.Item>
             <Divider plain>Or SignUp Using</Divider>
@@ -116,8 +114,7 @@ const SignUp = () => {
                     } catch (error) {
                       console.error('Error signing in with Google', error);
                     }
-                  }}
-                  className="bg-red-500 hover:bg-red-600 w-full py-2 text-white">
+                  }}>
                   Sign In with Google
                 </button>
               </S.Button>

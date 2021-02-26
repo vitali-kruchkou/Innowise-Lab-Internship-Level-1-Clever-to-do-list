@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { auth } from '../../../lib/index';
 // eslint-disable-next-line no-unused-vars
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Input } from 'antd';
 
@@ -63,7 +63,7 @@ const PasswordReset = () => {
               </button>
             </S.Button>
           </Form.Item>
-          <Link to="/">&larr; back to sign in page</Link>
+          <Link to="/signIn">&larr; back to sign in page</Link>
         </Form>
       </S.Form>
     </S.Container>

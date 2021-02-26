@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
 import PropTypes from 'prop-types';
@@ -11,9 +11,20 @@ import {
   lastDayOfMonth,
   startOfMonth,
 } from 'date-fns';
-import { DateContext } from '../../../providers/DateProvider';
+import { DateContext } from '../../../../providers/DateProvider';
 
-export function TheDate({ currentDate }) {
+export const TheDate = props => {
+  //Scroll to this day
+  const scrollToDate = () => {
+    let selectedDay = document.querySelector('.selected');
+    selectedDay.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    return scrollToDate();
+  }, []);
+
+  const { currentDate } = props;
   // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -64,10 +75,10 @@ export function TheDate({ currentDate }) {
       <ScrollMenu data={Cells()} alignCenter={false} />
     </S.Scroll>
   );
-}
+};
 
 TheDate.propTypes = {
-  currentDate: PropTypes.number,
+  currentDate: PropTypes.date,
 };
 
 const S = {

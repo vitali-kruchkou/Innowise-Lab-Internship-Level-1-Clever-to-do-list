@@ -4,20 +4,22 @@ import { firestore } from '../../../lib/index';
 import styled from 'styled-components';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { format } from 'date-fns';
-import { DateContext } from '../../../providers/DateProvider';
-import { Router } from '@reach/router';
+import { DateContext, TodoContext } from '../../../providers/DateProvider';
+
 import EditTodo from '../EditTodo/EditTodo';
 import { useHistory } from 'react-router-dom';
 const ListTodo = () => {
+  const [todo, setTodo] = useContext(TodoContext);
   const [day] = useContext(DateContext);
   const history = useHistory();
   const [todos, setTodos] = useState([]);
   useEffect(() => {
     console.log('useEffect Hook!!!');
+    let unsubscribe;
     if (day) {
       const date = `${format(day, 'dd MM yyyy')}`;
 
-      firestore
+      unsubscribe = firestore
         .collection('todos')
         .where('day', '==', date)
         .onSnapshot(snapshot => {
@@ -25,30 +27,28 @@ const ListTodo = () => {
           setTodos(
             snapshot.docs.map(doc => {
               return {
+                id: doc.id,
                 date: day,
-                name: doc.data().todo,
+                title: doc.data().title,
+                description: doc.data().description,
                 datatime: new Date(),
               };
             }),
           );
         });
     }
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
   }, [day]);
 
-  const deleteTodo = id => {
-    firestore
-      .collection('todos')
-      .doc(id)
-      .delete()
-      .then(res => {
-        console.log('Deleted!', res);
-      });
+  const redirectClick = todo => {
+    setTodo(todo);
+    history.push('/todo');
   };
-
-  function redirectClick() {
-    console.log(history);
-    // history.push('/home');
-  }
 
   return (
     <>
@@ -58,9 +58,9 @@ const ListTodo = () => {
             <S.ListItem
               key={todo.id}
               onClick={() => {
-                redirectClick();
+                redirectClick(todo);
               }}>
-              {todo.name} {console.log(format(todo.datatime, 'MMMM yyyy'))}
+              {todo.title} {console.log(format(todo.datatime, 'MMMM yyyy'))}
               {/* <EditOutlined />
               <DeleteOutlined onClick={() => deleteTodo(todo.id)} /> */}
             </S.ListItem>
@@ -75,6 +75,7 @@ export default ListTodo;
 
 const S = {
   List: styled.ul`
+    border: 2px solid green;
     text-align: center;
     list-style-type: none;
     padding: 0;

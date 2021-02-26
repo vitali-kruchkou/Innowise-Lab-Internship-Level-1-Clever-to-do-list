@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
-import { Link } from '@reach/router';
+import { Link } from 'react-router-dom';
 import { signInWithGoogle } from '../../../lib/index';
 import { auth } from '../../../lib/index';
 import styled from 'styled-components';
 import { Form, Input, Divider, Tooltip } from 'antd';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
+
 import {
   UserOutlined,
   GoogleOutlined,
@@ -92,11 +91,11 @@ const SignIn = () => {
                 </button>
               </S.Button>
               <S.Links>
-                <Link to="signUp">
+                <Link to="/signUp">
                   <span className="SignUp">Sign up </span>
                 </Link>{' '}
                 <br />
-                <Link to="passwordReset">
+                <Link to="/passwordReset">
                   <span>Forgot Password?</span>
                 </Link>
               </S.Links>

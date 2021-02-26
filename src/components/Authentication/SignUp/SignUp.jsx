@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react';
-import { Link } from '@reach/router';
+
 import {
   auth,
   signInWithGoogle,
@@ -9,6 +9,7 @@ import {
 import styled from 'styled-components';
 import { Form, Input, Divider, Tooltip } from 'antd';
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -30,6 +31,7 @@ const SignUp = () => {
       generateUserDocument(user, { displayName });
     } catch (error) {
       setError('Error Signing up with email and password');
+      throw new Error(`Ошибка запроса: ${error.message}`);
     }
 
     setEmail('');
@@ -119,7 +121,7 @@ const SignUp = () => {
               </S.Button>
               <S.Links>
                 <p> Already have an account?</p>
-                <Link to="/">Sign in</Link>
+                <Link to="/signIn">Sign in</Link>
               </S.Links>
             </Form.Item>
             <Divider plain>Or SignUp Using</Divider>

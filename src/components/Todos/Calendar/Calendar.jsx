@@ -5,6 +5,7 @@ import { TheDate } from './TheDate/TheDate';
 
 export default function Calendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  console.log(currentDate);
 
   return (
     <S.Calendar>

@@ -1,13 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
-import Calendar from '../../Calendar/Calendar';
+import Calendar from '../Calendar/Calendar';
 import { auth } from '../../../lib/index';
-import AddTodo from '../../Todos/AddTodo/AddTodo';
-import ListTodo from '../../Todos/ListTodo/ListTodo';
+import ListTodo from '../ListTodo/ListTodo';
 import { useHistory } from 'react-router-dom';
-const ProfilePage = () => {
+function ProfilePage() {
   const history = useHistory();
-
   return (
     <>
       {console.log(history)}
@@ -17,11 +15,18 @@ const ProfilePage = () => {
         }}>
         Sign out
       </button>
+      <button
+        onClick={() => {
+          history.push('/addtodo');
+        }}>
+        AddTodo
+      </button>
       <Calendar />
-      <AddTodo />
-      <ListTodo history={history} />
+      {/* <AddTodo /> */}
+      <ListTodo />
+      {console.log(process.env.REACT_APP_DATABASE_URL)}
     </>
   );
-};
+}
 
 export default ProfilePage;

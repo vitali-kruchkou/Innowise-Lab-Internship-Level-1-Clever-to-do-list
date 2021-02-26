@@ -31,7 +31,7 @@ const SignUp = () => {
       generateUserDocument(user, { displayName });
     } catch (error) {
       setError('Error Signing up with email and password');
-      throw new Error(`Ошибка запроса: ${error.message}`);
+      console.log(error.message);
     }
 
     setEmail('');
@@ -228,6 +228,9 @@ const S = {
     }
   `,
   Error: styled.span`
+    color: red;
+  `,
+  Toast: styled.div`
     color: red;
   `,
 };

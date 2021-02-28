@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { auth, generateUserDocument } from '../lib';
-import PropTypes from 'prop-types';
 
 export const UserContext = createContext({ user: null });
 
@@ -20,7 +19,3 @@ export function UserProvider(props) {
 }
 
 export default UserProvider;
-
-UserProvider.propTypes = {
-  children: PropTypes.object,
-};

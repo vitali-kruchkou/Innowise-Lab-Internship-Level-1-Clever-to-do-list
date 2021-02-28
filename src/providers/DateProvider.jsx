@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
 export const TodoContext = createContext({ todo: null });
 export const DateContext = createContext({ date: null });
@@ -17,7 +16,3 @@ export function DateProvider(props) {
 }
 
 export default DateProvider;
-
-DateProvider.propTypes = {
-  children: PropTypes.object,
-};

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { UserContext } from '../providers/UserProvider';
 import DateProvider from '../providers/DateProvider';
 import { BrowserRouter as Router } from 'react-router-dom';
-import PropTypes from 'prop-types';
+
 import Authentication from '../components/Authentication/Authentication';
 import Todo from '../components/Todos/Todo';
 
@@ -21,7 +21,3 @@ export default function Routes() {
     </Router>
   );
 }
-
-Routes.propTypes = {
-  children: PropTypes.objecte,
-};

@@ -1,7 +1,6 @@
 import React from 'react';
 import { addMonths, format, subMonths } from 'date-fns';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 export function Months({ currentDate, setCurrentDate }) {
   const dateFormat = 'MMMM yyyy';
@@ -29,11 +28,6 @@ export function Months({ currentDate, setCurrentDate }) {
     </S.Header>
   );
 }
-
-Months.propTypes = {
-  currentDate: PropTypes.number,
-  setCurrentDate: PropTypes.func,
-};
 
 const S = {
   Header: styled.div`

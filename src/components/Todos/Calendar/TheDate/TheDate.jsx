@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
-import PropTypes from 'prop-types';
+
 import {
   addDays,
   format,
@@ -27,9 +27,8 @@ export const TheDate = props => {
   const { currentDate } = props;
   // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  const [, setDate] = useContext(DateContext);
   const Cells = () => {
-    const [date, setDate] = useContext(DateContext);
     const monthStart = startOfMonth(currentDate);
     const startDate = startOfMonth(monthStart);
 
@@ -39,13 +38,6 @@ export const TheDate = props => {
     let days = [];
     let day = startDate;
     let formattedDate = '';
-
-    const onDateClick = day => {
-      setSelectedDate(day);
-      setDate(day);
-      console.log(date);
-      console.log(day);
-    };
 
     for (let i = 0; i < lastDayOfThisMonth; i++) {
       formattedDate = format(day, dateFormat);
@@ -70,15 +62,18 @@ export const TheDate = props => {
     return days;
   };
 
+  const onDateClick = day => {
+    setSelectedDate(day);
+    setDate(day);
+    // console.log(date);
+    // console.log(day);
+  };
+
   return (
     <S.Scroll>
       <ScrollMenu data={Cells()} alignCenter={false} />
     </S.Scroll>
   );
-};
-
-TheDate.propTypes = {
-  currentDate: PropTypes.date,
 };
 
 const S = {

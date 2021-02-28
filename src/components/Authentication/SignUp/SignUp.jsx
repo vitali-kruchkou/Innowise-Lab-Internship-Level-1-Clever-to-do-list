@@ -1,36 +1,35 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useState } from 'react';
 
-import {
-  auth,
-  signInWithGoogle,
-  generateUserDocument,
-} from '../../../lib/index';
+import { auth, signInWithGoogle } from '../../../lib/index';
 import styled from 'styled-components';
 import { Form, Input, Divider, Tooltip } from 'antd';
 import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState(null);
-
+  const [success, setSuccess] = useState(null);
+  const history = useHistory();
   const createUserWithEmailAndPasswordHandler = async (
     event,
     email,
     password,
   ) => {
     event.preventDefault();
+    setSuccess(toast.success('Good!'));
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password,
       );
-      generateUserDocument(user, { displayName });
     } catch (error) {
-      setError('Error Signing up with email and password');
+      setError(toast.error(error.message));
+
       console.log(error.message);
     }
 
@@ -57,7 +56,18 @@ const SignUp = () => {
         <S.Form>
           <Form>
             <S.Title>Sign Up</S.Title>
-            {error !== null && <S.Error>{error}</S.Error>}
+            {error !== null && (
+              <>
+                <S.Error>{error.message}</S.Error>
+                <Toaster />
+              </>
+            )}
+            {success !== null && (
+              <>
+                {console.log(success)}
+                <Toaster />
+              </>
+            )}
             <Form.Item>
               <Input
                 type="text"
@@ -115,6 +125,7 @@ const SignUp = () => {
                       email,
                       password,
                     );
+                    history.push('/calendar');
                   }}>
                   Sign up
                 </button>

@@ -5,7 +5,7 @@ import { signInWithGoogle } from '../../../lib/index';
 import { auth } from '../../../lib/index';
 import styled from 'styled-components';
 import { Form, Input, Divider, Tooltip } from 'antd';
-
+import toast, { Toaster } from 'react-hot-toast';
 import {
   UserOutlined,
   GoogleOutlined,
@@ -16,13 +16,34 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  // const signInWithEmailAndPasswordHandler = (event, email, password) => {
+  //   event.preventDefault();
+  //   setSuccess(toast.success('Good!'));
+  //   auth.signInWithEmailAndPassword(email, password).catch(error => {
+  //     setError(toast.error(error.message));
+  //     console.error('Error signing in with password and email', error);
+  //   });
+  // };
 
-  const signInWithEmailAndPasswordHandler = (event, email, password) => {
+  // const onChangeHandler = event => {
+  //   const { name, value } = event.currentTarget;
+
+  //   if (name === 'userEmail') {
+  //     setEmail(value);
+  //   } else if (name === 'userPassword') {
+  //     setPassword(value);
+  //   }
+  // };
+  const signInWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).catch(error => {
-      setError('Error signing in with password and email!');
+    try {
+      setTimeout(await auth.signInWithEmailAndPassword(email, password), 3000);
+      setSuccess(toast.success('Good!'));
+    } catch (error) {
+      setError(toast.error(error.message));
       console.error('Error signing in with password and email', error);
-    });
+    }
   };
 
   const onChangeHandler = event => {
@@ -48,7 +69,17 @@ const SignIn = () => {
               Please login to your account
             </p>
             <Divider />
-            {error !== null && <S.Error>{error}</S.Error>}
+            {error !== null && (
+              <>
+                <S.Error>{error.message}</S.Error>
+                <Toaster />
+              </>
+            )}
+            {success !== null && (
+              <>
+                <Toaster />
+              </>
+            )}
             <Form.Item>
               <Input
                 type="email"

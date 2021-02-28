@@ -1,7 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-
 import config from './firebaseConfig';
 
 // Check if we have already initialized an app

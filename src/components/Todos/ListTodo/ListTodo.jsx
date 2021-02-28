@@ -2,17 +2,25 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { firestore } from '../../../lib/index';
 import styled from 'styled-components';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+} from '@ant-design/icons';
 import { format } from 'date-fns';
 import { DateContext, TodoContext } from '../../../providers/DateProvider';
-
-import EditTodo from '../EditTodo/EditTodo';
+import { Card, Checkbox, List } from 'antd';
 import { useHistory } from 'react-router-dom';
+import { UserContext } from '../../../providers/UserProvider';
+
 const ListTodo = () => {
-  const [todo, setTodo] = useContext(TodoContext);
+  const [, setTodo] = useContext(TodoContext);
   const [day] = useContext(DateContext);
   const history = useHistory();
   const [todos, setTodos] = useState([]);
+  const [, setDone] = useState(todos.done);
+  const user = useContext(UserContext);
   useEffect(() => {
     console.log('useEffect Hook!!!');
     let unsubscribe;
@@ -21,6 +29,7 @@ const ListTodo = () => {
 
       unsubscribe = firestore
         .collection('todos')
+        .where('userId', '==', user.uid)
         .where('day', '==', date)
         .onSnapshot(snapshot => {
           console.log('Firebase Snap!');
@@ -31,6 +40,7 @@ const ListTodo = () => {
                 date: day,
                 title: doc.data().title,
                 description: doc.data().description,
+                done: doc.data().done,
                 datatime: new Date(),
               };
             }),
@@ -50,24 +60,75 @@ const ListTodo = () => {
     history.push('/todo');
   };
 
+  const onChangeDone = todo => {
+    let done = !todo.done;
+    setDone(!done);
+    console.log(done);
+    firestore.collection('todos').doc(todo.id).update({
+      done: done,
+    });
+  };
+
   return (
-    <>
-      <S.List>
-        {todos.map(todo => {
-          return (
-            <S.ListItem
-              key={todo.id}
-              onClick={() => {
-                redirectClick(todo);
-              }}>
-              {todo.title} {console.log(format(todo.datatime, 'MMMM yyyy'))}
-              {/* <EditOutlined />
-              <DeleteOutlined onClick={() => deleteTodo(todo.id)} /> */}
-            </S.ListItem>
-          );
-        })}
-      </S.List>
-    </>
+    // <>
+    //   <S.List>
+    //     {todos.map(todo => {
+    //       return (
+    //         <>
+    //           <Checkbox
+    //             defaultChecked={todo.done}
+    //             onClick={() => {
+    //               onChangeDone(todo);
+    //             }}
+    //           />
+    //           <S.ListItem
+    //             key={todo.id}
+    //             onClick={() => {
+    //               redirectClick(todo);
+    //             }}>
+    //             {todo.title}
+    //             {todo.done !== false ? (
+    //               <CheckCircleOutlined />
+    //             ) : (
+    //               <CloseCircleOutlined />
+    //             )}
+    //           </S.ListItem>
+    //         </>
+    //       );
+    //     })}
+    //   </S.List>
+    // </>
+    <S.List>
+      <List
+        dataSource={todos}
+        renderItem={todo => (
+          <>
+            <List.Item key={todo.id}>
+              <Checkbox
+                defaultChecked={todo.done}
+                onClick={() => {
+                  onChangeDone(todo);
+                }}
+              />
+              <S.ListItem>
+                <List.Item.Meta
+                  title={todo.title}
+                  description={todo.description}
+                  onClick={() => {
+                    redirectClick(todo);
+                  }}
+                />
+              </S.ListItem>
+              {todo.done !== false ? (
+                <CheckCircleOutlined />
+              ) : (
+                <CloseCircleOutlined />
+              )}
+            </List.Item>
+          </>
+        )}
+      />
+    </S.List>
   );
 };
 
@@ -75,14 +136,20 @@ export default ListTodo;
 
 const S = {
   List: styled.ul`
-    border: 2px solid green;
-    text-align: center;
     list-style-type: none;
     padding: 0;
     margin: 0;
+    width: 600px;
+    margin: 0 auto;
   `,
-  ListItem: styled.li`
+  ListItem: styled.div`
     margin: 0 auto;
     border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 200px;
+    text-align: center;
   `,
 };

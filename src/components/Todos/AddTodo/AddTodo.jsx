@@ -1,22 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import { firestore } from '../../../lib/index';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Checkbox } from 'antd';
 // import styled from 'styled-components';
 import { DateContext } from '../../../providers/DateProvider';
 import { format } from 'date-fns';
+import { UserContext } from '../../../providers/UserProvider';
 const AddTodo = () => {
   const [day] = useContext(DateContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-
+  const user = useContext(UserContext);
   const addTodo = event => {
     const date = `${format(day, 'dd MM yyyy')}`;
     event.preventDefault();
     firestore.collection('todos').add({
+      userId: user.uid,
       title: title,
       description: description,
       day: date,
+      done: false,
     });
     setTitle('');
     setDescription('');

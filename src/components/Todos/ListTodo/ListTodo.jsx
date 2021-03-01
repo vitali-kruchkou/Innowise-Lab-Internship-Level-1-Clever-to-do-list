@@ -3,11 +3,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { firestore } from '../../../lib/index';
 import styled from 'styled-components';
 import { DateContext, TodoContext } from '../../../providers/DateProvider';
-import { List } from 'antd';
+import { List, Switch } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../providers/UserProvider';
-import Checkbox from 'antd/lib/checkbox/Checkbox';
-import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import {
+  CloseOutlined,
+  CheckOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 
 const ListTodo = () => {
   const [, setTodo] = useContext(TodoContext);
@@ -62,6 +65,38 @@ const ListTodo = () => {
       done: done,
     });
   };
+  const deleteTodo = id => {
+    firestore
+      .collection('todos')
+      .doc(id)
+      .delete()
+      .then(res => {
+        console.log('Deleted!', res);
+      });
+  };
+
+  const handleFilter = todos => {
+    // let filtered = todos.filter(todo => {
+    //   return !todo.done;
+    // });
+    // setTodos(filtered);
+    var filtered = firestore
+      .collection('todos')
+      .where('done', '==', true)
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          doc.ref
+            .delete()
+            .then(() => {
+              console.log('Document successfully deleted!');
+            })
+            .catch(function (error) {
+              console.error('Error removing document: ', error);
+            });
+        });
+      });
+  };
 
   return (
     // <>
@@ -99,30 +134,47 @@ const ListTodo = () => {
           renderItem={todo => (
             <>
               <List.Item key={todo.id}>
-                <Checkbox
+                {/* <Checkbox
                   defaultChecked={todo.done}
+                  onClick={() => {
+                    onChangeDone(todo);
+                  }}
+                /> */}
+                <Switch
+                  checkedChildren={<CheckOutlined />}
+                  unCheckedChildren={<CloseOutlined />}
+                  defaultChecked={todo.done}
+                  className={todo.done == true ? 'check' : 'uncheck'}
                   onClick={() => {
                     onChangeDone(todo);
                   }}
                 />
                 <S.ListItem>
                   <List.Item.Meta
+                    className={todo.done ? 'todo-completed' : undefined}
                     title={todo.title}
                     onClick={() => {
                       redirectClick(todo);
                     }}
                   />
                 </S.ListItem>
-                {todo.done !== false ? (
+                {/* {todo.done !== false ? (
                   <CheckCircleOutlined />
                 ) : (
                   <CloseCircleOutlined />
-                )}
+                )} */}
+                <DeleteOutlined onClick={() => deleteTodo(todo.id)} />
               </List.Item>
             </>
           )}
         />
       </S.List>
+      <button
+        onClick={() => {
+          handleFilter(todos);
+        }}>
+        Clear All Completed
+      </button>
     </S.Container>
   );
 };
@@ -134,6 +186,7 @@ const S = {
     width: 600px;
     max-height: 500px;
     margin: 20px auto;
+    background-color: rgb(243, 243, 243);
     @media (max-width: 767px) {
       overflow: scroll;
       max-width: 400px;
@@ -162,6 +215,7 @@ const S = {
     align-items: space-between;
     width: 200px;
     text-align: center;
+    background-color: white;
     @media (max-width: 575px) {
       max-width: 100px;
       margin: 0 auto;

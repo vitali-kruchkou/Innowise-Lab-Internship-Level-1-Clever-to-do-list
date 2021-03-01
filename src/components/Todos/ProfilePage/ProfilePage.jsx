@@ -61,7 +61,7 @@ const S = {
     text-align: center;
     border: none;
     & > button {
-      background-color: #000080;
+      background-color: #b629fd;
       color: white;
       border: none;
     }

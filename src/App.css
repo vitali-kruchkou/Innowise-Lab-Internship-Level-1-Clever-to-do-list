@@ -44,7 +44,19 @@
 }
 .selected {
   border-radius: 30%;
-  background-color: #000080;
+  background-color: #b629fd;
   color: white;
 }
 
+.todo-completed {
+  text-decoration: line-through;
+  background-color: #8db600;
+}
+.check {
+  background-color: #8db600;
+  color: white;
+}
+.uncheck {
+  background-color: #d61313;
+  color: white;
+}

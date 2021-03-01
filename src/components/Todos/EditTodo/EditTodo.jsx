@@ -30,7 +30,7 @@ function EditTodo() {
     setSuccess(toast.success('Deleted!'));
     setTimeout(() => {
       history.goBack();
-    }, 3000);
+    }, 1000);
   };
   const onChange = () => {
     setDone(!isDone);

@@ -77,5 +77,8 @@ const S = {
       color: white;
       border: none;
     }
+    @media (max-width: 575px) {
+      font-size: 13px;
+    }
   `,
 };

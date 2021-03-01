@@ -5,12 +5,14 @@ import { Form, Input } from 'antd';
 import { firestore } from '../../../lib';
 import styled from 'styled-components';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import toast, { Toaster } from 'react-hot-toast';
 
 export function EditTodoPage() {
   const [todo, setTodo] = useContext(TodoContext);
   const history = useHistory();
   const [title, setTitle] = useState(todo ? todo.title : '');
   const [description, setDescription] = useState(todo ? todo.description : '');
+  const [, setSuccess] = useState();
   // useEffect = () => {
   //   firestore.collection('todos').doc(todo.id).update({
   //     title: title,
@@ -39,22 +41,24 @@ export function EditTodoPage() {
           });
       })
       .then(res => {
+        setSuccess(toast.success('Update!'));
         console.log('Update!', res);
       });
   };
 
   const cancelEdit = () => {
-    history.goBack();
+    history.push('/');
   };
 
   return (
     <>
+      <Toaster />
       <S.Container>
         <Form>
           <S.Header>
             <button
               onClick={() => {
-                history.push('/todo');
+                history.goBack();
               }}>
               {'<'}
             </button>

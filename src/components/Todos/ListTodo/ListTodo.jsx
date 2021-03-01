@@ -7,6 +7,7 @@ import { List } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../providers/UserProvider';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 
 const ListTodo = () => {
   const [, setTodo] = useContext(TodoContext);
@@ -112,11 +113,11 @@ const ListTodo = () => {
                     }}
                   />
                 </S.ListItem>
-                {/* {todo.done !== false ? (
+                {todo.done !== false ? (
                   <CheckCircleOutlined />
                 ) : (
                   <CloseCircleOutlined />
-                )} */}
+                )}
               </List.Item>
             </>
           )}

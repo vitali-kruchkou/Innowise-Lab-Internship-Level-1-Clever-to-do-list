@@ -2,17 +2,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { firestore } from '../../../lib/index';
 import styled from 'styled-components';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-} from '@ant-design/icons';
-import { format } from 'date-fns';
 import { DateContext, TodoContext } from '../../../providers/DateProvider';
-import { Card, Checkbox, List } from 'antd';
+import { List } from 'antd';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../../providers/UserProvider';
+import Checkbox from 'antd/lib/checkbox/Checkbox';
 
 const ListTodo = () => {
   const [, setTodo] = useContext(TodoContext);
@@ -25,12 +19,11 @@ const ListTodo = () => {
     console.log('useEffect Hook!!!');
     let unsubscribe;
     if (day) {
-      const date = `${format(day, 'dd MM yyyy')}`;
-
+      // const date = `${format(day, 'dd MM yyyy')}`;
       unsubscribe = firestore
         .collection('todos')
         .where('userId', '==', user.uid)
-        .where('day', '==', date)
+        .where('day', '==', day)
         .onSnapshot(snapshot => {
           console.log('Firebase Snap!');
           setTodos(
@@ -98,58 +91,79 @@ const ListTodo = () => {
     //     })}
     //   </S.List>
     // </>
-    <S.List>
-      <List
-        dataSource={todos}
-        renderItem={todo => (
-          <>
-            <List.Item key={todo.id}>
-              <Checkbox
-                defaultChecked={todo.done}
-                onClick={() => {
-                  onChangeDone(todo);
-                }}
-              />
-              <S.ListItem>
-                <List.Item.Meta
-                  title={todo.title}
-                  description={todo.description}
+    <S.Container>
+      <S.List>
+        <List
+          dataSource={todos}
+          renderItem={todo => (
+            <>
+              <List.Item key={todo.id}>
+                <Checkbox
+                  defaultChecked={todo.done}
                   onClick={() => {
-                    redirectClick(todo);
+                    onChangeDone(todo);
                   }}
                 />
-              </S.ListItem>
-              {todo.done !== false ? (
-                <CheckCircleOutlined />
-              ) : (
-                <CloseCircleOutlined />
-              )}
-            </List.Item>
-          </>
-        )}
-      />
-    </S.List>
+                <S.ListItem>
+                  <List.Item.Meta
+                    title={todo.title}
+                    onClick={() => {
+                      redirectClick(todo);
+                    }}
+                  />
+                </S.ListItem>
+                {/* {todo.done !== false ? (
+                  <CheckCircleOutlined />
+                ) : (
+                  <CloseCircleOutlined />
+                )} */}
+              </List.Item>
+            </>
+          )}
+        />
+      </S.List>
+    </S.Container>
   );
 };
 
 export default ListTodo;
 
 const S = {
+  Container: styled.div`
+    width: 600px;
+    max-height: 500px;
+    margin: 20px auto;
+    @media (max-width: 767px) {
+      overflow: scroll;
+      max-width: 400px;
+      max-height: 300px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 575px) {
+      overflow: scroll;
+      max-width: 300px;
+      max-height: 200px;
+      margin: 30px auto;
+    }
+  `,
   List: styled.ul`
     list-style-type: none;
     padding: 0;
     margin: 0;
-    width: 600px;
-    margin: 0 auto;
   `,
   ListItem: styled.div`
     margin: 0 auto;
-    border: 1px solid black;
+    border: 1px solid lightgray;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: space-between;
     width: 200px;
     text-align: center;
+    @media (max-width: 575px) {
+      max-width: 100px;
+      margin: 0 auto;
+    }
   `,
 };

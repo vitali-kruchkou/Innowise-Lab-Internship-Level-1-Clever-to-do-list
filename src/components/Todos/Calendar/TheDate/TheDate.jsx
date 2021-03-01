@@ -28,6 +28,14 @@ export const TheDate = props => {
   // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [, setDate] = useContext(DateContext);
+
+  const onDateClick = day => {
+    setSelectedDate(day);
+    setDate(format(day, 'dd MM yyyy'));
+    // console.log(date);
+    // console.log(day);
+  };
+
   const Cells = () => {
     const monthStart = startOfMonth(currentDate);
     const startDate = startOfMonth(monthStart);
@@ -60,13 +68,6 @@ export const TheDate = props => {
       day = addDays(day, 1);
     }
     return days;
-  };
-
-  const onDateClick = day => {
-    setSelectedDate(day);
-    setDate(day);
-    // console.log(date);
-    // console.log(day);
   };
 
   return (

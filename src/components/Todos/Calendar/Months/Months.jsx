@@ -44,6 +44,7 @@ const S = {
     margin: 0 auto;
     font-size: 20px;
     font-weight: bold;
+    color: #000080;
   `,
   HeaderCellAnlge: styled.span`
     display: flex;
@@ -52,7 +53,8 @@ const S = {
     font-size: 20px;
     font-weight: bold;
     width: 30px;
-    background: #464cee;
+    background: #000080;
     border-radius: 50%;
+    color: white;
   `,
 };

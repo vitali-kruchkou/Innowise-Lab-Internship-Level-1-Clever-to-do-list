@@ -1,20 +1,32 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import AddTodo from './AddTodo';
 
 export const AddTodoPage = () => {
-  const history = useHistory();
   return (
-    <div>
-      <AddTodo />
-      <button
-        onClick={() => {
-          history.push('/');
-        }}>
-        {'<'}
-      </button>
-    </div>
+    <S.Container>
+      <div>
+        <AddTodo />
+      </div>
+    </S.Container>
   );
 };
 
 export default AddTodoPage;
+
+const S = {
+  Container: styled.div`
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    // position: absolute;
+    // top: 0;
+    // left: 50%;
+    // margin-right: -50%;
+    // transform: translate(-50%, 0);
+  `,
+};

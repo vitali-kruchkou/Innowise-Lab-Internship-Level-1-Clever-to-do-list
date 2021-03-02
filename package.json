@@ -2,6 +2,7 @@
   "name": "clever-to-do-list",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://vitali-kruchkou.github.io/Innowise-Lab-Internship-Level-1-Clever-to-do-list/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -10,6 +11,7 @@
     "date-fns": "^2.17.0",
     "env-cmd": "^10.1.0",
     "firebase": "^8.2.9",
+    "gh-pages": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -25,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "npm run build&&gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

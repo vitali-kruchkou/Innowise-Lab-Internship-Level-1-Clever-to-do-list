@@ -1,5 +1,6 @@
 module.exports = {
   env: {
+    node: true,
     browser: true,
     es2021: true,
   },
@@ -14,5 +15,6 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'no-console': 'off',
+    'react/prop-types': 0,
   },
 };

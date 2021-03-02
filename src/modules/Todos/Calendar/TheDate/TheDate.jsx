@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
-import PropTypes from 'prop-types';
+
 import {
   addDays,
   format,
@@ -11,10 +11,29 @@ import {
   lastDayOfMonth,
   startOfMonth,
 } from 'date-fns';
+import { DateContext } from '../../../../providers/DateProvider';
 
-export function TheDate({ currentDate }) {
-  // eslint-disable-next-line no-unused-vars
+export const TheDate = props => {
+  //Scroll to this day
+  const scrollToDate = () => {
+    let selectedDay = document.querySelector('.selected');
+    selectedDay.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    return scrollToDate();
+  }, []);
+
+  const { currentDate } = props;
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [, setDate] = useContext(DateContext);
+
+  const onDateClick = day => {
+    setSelectedDate(day);
+    setDate(format(day, 'dd MM yyyy'));
+    // console.log(date);
+    // console.log(day);
+  };
 
   const Cells = () => {
     const monthStart = startOfMonth(currentDate);
@@ -50,20 +69,11 @@ export function TheDate({ currentDate }) {
     return days;
   };
 
-  const onDateClick = day => {
-    setSelectedDate(day);
-    console.log(day);
-  };
-
   return (
     <S.Scroll>
       <ScrollMenu data={Cells()} alignCenter={false} />
     </S.Scroll>
   );
-}
-
-TheDate.propTypes = {
-  currentDate: PropTypes.number,
 };
 
 const S = {

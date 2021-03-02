@@ -1,11 +1,9 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useContext } from 'react';
-import { auth } from '../../../lib/index';
-// eslint-disable-next-line no-unused-vars
-import { UserContext } from '../../../providers/UserProvider';
-import { Link } from '@reach/router';
+import React, { useState } from 'react';
+import { auth } from '../../../firebase/index';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Input } from 'antd';
+import toast, { Toaster } from 'react-hot-toast';
 
 const PasswordReset = () => {
   const [email, setEmail] = useState('');
@@ -29,9 +27,10 @@ const PasswordReset = () => {
         setTimeout(() => {
           setEmailHasBeenSent(false);
         }, 3000);
+        setError(toast.success('Please check your email'));
       })
       .catch(() => {
-        setError('Error resetting password');
+        setError(toast.error('Please enter a valid email'));
       });
   };
   return (
@@ -42,7 +41,11 @@ const PasswordReset = () => {
           {emailHasBeenSent && (
             <S.Accept>An email has been sent to you!</S.Accept>
           )}
-          {error !== null && <div>{error}</div>}
+          {error !== null && (
+            <div>
+              <Toaster />
+            </div>
+          )}
           <Form.Item>
             <Input
               type="email"
@@ -64,7 +67,7 @@ const PasswordReset = () => {
               </button>
             </S.Button>
           </Form.Item>
-          <Link to="/">&larr; back to sign in page</Link>
+          <Link to="/signIn">&larr; back to sign in page</Link>
         </Form>
       </S.Form>
     </S.Container>

@@ -1,24 +1,40 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Link } from '@reach/router';
-import { signInWithGoogle } from '../../../lib/index';
-import { auth } from '../../../lib/index';
+import { auth, signInWithGoogle } from '../../../firebase/index';
 import styled from 'styled-components';
-import { Form, Input, Divider } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
+import { Form, Input, Divider, Tooltip } from 'antd';
+import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { Link, useHistory } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
-const SignIn = () => {
+const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState(null);
-
-  const signInWithEmailAndPasswordHandler = (event, email, password) => {
+  const [success, setSuccess] = useState(null);
+  const history = useHistory();
+  const createUserWithEmailAndPasswordHandler = async (
+    event,
+    email,
+    password,
+  ) => {
     event.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).catch(error => {
-      setError('Error signing in with password and email!');
-      console.error('Error signing in with password and email', error);
-    });
+    setSuccess(toast.success('Good!'));
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password,
+      );
+    } catch (error) {
+      setError(toast.error(error.message));
+
+      console.log(error.message);
+    }
+
+    setEmail('');
+    setPassword('');
+    setDisplayName('');
   };
 
   const onChangeHandler = event => {
@@ -28,6 +44,8 @@ const SignIn = () => {
       setEmail(value);
     } else if (name === 'userPassword') {
       setPassword(value);
+    } else if (name === 'displayName') {
+      setDisplayName(value);
     }
   };
 
@@ -36,23 +54,49 @@ const SignIn = () => {
       <S.Container>
         <S.Form>
           <Form>
-            <S.Title>Clever Todo List</S.Title>
-            <Divider />
-            <p>
-              Welcome to Clever Todo list.
-              <br />
-              Please login to your account
-            </p>
-            <Divider />
-            {error !== null && <S.Error>{error}</S.Error>}
+            <S.Title>Sign Up</S.Title>
+            {error !== null && (
+              <>
+                <S.Error>{error.message}</S.Error>
+                <Toaster />
+              </>
+            )}
+            {success !== null && (
+              <>
+                {console.log(success)}
+                <Toaster />
+              </>
+            )}
+            <Form.Item>
+              <Input
+                type="text"
+                name="displayName"
+                value={displayName}
+                placeholder="E.g: Faruq"
+                id="displayName"
+                onChange={event => onChangeHandler(event)}
+                prefix={<UserOutlined />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
+              />
+            </Form.Item>
             <Form.Item>
               <Input
                 type="email"
                 name="userEmail"
                 value={email}
-                placeholder="Your email"
+                placeholder="E.g: faruq123@gmail.com"
                 id="userEmail"
                 onChange={event => onChangeHandler(event)}
+                prefix={<UserOutlined />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
@@ -63,38 +107,45 @@ const SignIn = () => {
                 placeholder="Your Password"
                 id="userPassword"
                 onChange={event => onChangeHandler(event)}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
               />
             </Form.Item>
             <Form.Item>
               <S.Button>
                 <button
-                  className="SignIn"
+                  className="SignUp"
                   onClick={event => {
-                    signInWithEmailAndPasswordHandler(event, email, password);
+                    createUserWithEmailAndPasswordHandler(
+                      event,
+                      email,
+                      password,
+                    );
+                    history.push('/calendar');
                   }}>
-                  Login
+                  Sign up
                 </button>
               </S.Button>
               <S.Links>
-                <Link to="signUp">
-                  <span className="SignUp">Sign up </span>
-                </Link>{' '}
-                <br />
-                <Link to="passwordReset">
-                  <span>Forgot Password?</span>
-                </Link>
+                <p> Already have an account?</p>
+                <Link to="/signIn">Sign in</Link>
               </S.Links>
             </Form.Item>
-            <Divider plain>Or Login Using</Divider>
+            <Divider plain>Or SignUp Using</Divider>
             <Form.Item>
               <S.Button>
                 <button
-                  className="Google"
                   onClick={() => {
-                    signInWithGoogle();
+                    try {
+                      signInWithGoogle();
+                    } catch (error) {
+                      console.error('Error signing in with Google', error);
+                    }
                   }}>
-                  <FontAwesomeIcon icon={faGooglePlusG} />
-                  <span>Google</span>
+                  Sign In with Google
                 </button>
               </S.Button>
             </Form.Item>
@@ -105,7 +156,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;
 
 const S = {
   Container: styled.div`
@@ -123,7 +174,7 @@ const S = {
   `,
   Button: styled.div`
     width: 200px;
-    & > .SignIn {
+    & > .SignUp {
       width: 200px;
       background: rgb(151, 11, 221);
       background: linear-gradient(
@@ -138,7 +189,7 @@ const S = {
       color: white;
       transition: 0.4s linear;
     }
-    & > .SignIn:hover {
+    & > .SignUp:hover {
       background-color: #e1dfdf;
       color: black;
       border: none;
@@ -171,9 +222,10 @@ const S = {
       border: none;
     }
   `,
-  Title: styled.span`
+  Title: styled.div`
     font-size: 30px;
     font-style: italic;
+    padding-bottom: 30px;
   `,
   Links: styled.div`
     display: flex;
@@ -184,11 +236,11 @@ const S = {
     & > Link {
       color: black;
     }
-    & > Link > .SignUp {
-      border: 1px solid black;
-    }
   `,
   Error: styled.span`
+    color: red;
+  `,
+  Toast: styled.div`
     color: red;
   `,
 };

@@ -57,7 +57,7 @@ PageContent.jsx
             └──todo
     	    ├──day
                 ├──description
-		├──done
+		    ├──done
                 ├──title
                 └──userId
     └──users

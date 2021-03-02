@@ -1,12 +1,31 @@
-# Getting Started with Create React App
+# Innowise Lab Internship: Level 1: Clever to-do list
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created with React and Firebase.
+
+[Demo](https://vitali-kruchkou.github.io/Innowise-Lab-Internship-Level-1-Clever-to-do-list/)
 
 ## Available Scripts
+1. Clone the develop branch.
+
+`$ git clone https://github.com/vitali-kruchkou/Innowise-Lab-Internship-Level-1-Clever-to-do-list -b develop`
+
+2. Go to the directory
+
+`$ cd Innowise-Lab-Internship-Level-1-Clever-to-do-list`
+
+3. Install the npm modules
+
+`$ npm install`
+
+4. **For working locally add .env file with firebase API keys.**
+
+Create .env file by type 
+
+`REACT_APP_API_KEY=your API key`
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,57 +33,89 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+App is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## Architecture solution
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Component folder
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Component folder usually contains 1 files: .jsx; there files and the folder are named with component name (f.e.
+PageContent /
+PageContent.jsx
+)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Database snapshot
+    .
+    └──todos
+        └──todosId                             
+            └──todo
+				├──day
+                ├──description  
+				├──done
+                ├──title           
+                └──userId                 
+    └──users
+		└──userId
+			├──displayName
+			└──email
+			
+## Application stack
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+List of packages I used for this app
 
-## Learn More
+### React-router-dom
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Used to add routing
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Styled components
 
-### Code Splitting
+Used for style components
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### React--hot-toast
 
-### Analyzing the Bundle Size
+Use to add Toast messages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### React-horizontal-scrolling-menu
 
-### Making a Progressive Web App
+Use to add scroll into calendar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Date-fns
 
-### Advanced Configuration
+Used to format date
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Folders structure
 
-### Deployment
+└──src                       #Main folder for source code
+    ├──firebase              	#Contains firebase init script
+    ├──modules					#Contains the main component of the application
+        ├──Authentication			#Contains the main components for authorization
+            ├──PasswordReset			#Password reset component
+            ├──SignIn					#Sign In component
+            ├──SignUp					#Sign Up component
+            └──Authentication.jsx 	
+        └──Todos				#Contains the main component for a to-do list
+            ├──AddTodo			#Add todo component
+            ├──Calendar			#Calendar component
+            ├──EditTodo			#Edit todo component
+            ├──ListTodo			#List todo component
+            ├──ProfilePage		#Profile page component
+            └──Todo.jsx 			             
+    ├──providers  				#Folder for context           
+    ├──routes   				#Routing files            
+    └──index.js 				
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Styling
 
-### `npm run build` fails to minify
+We use styled-components and ant design to work with styles in our application;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Code formatting
+
+This project contains .prettierrc file and .eslintrc.js file; it describes rules for Prettier code formatter and ESlint; according to these rules we are able to keep Code formatting the same for every project developer;

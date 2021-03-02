@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import Calendar from '../Calendar/Calendar';
-import { auth } from '../../../lib/index';
+import { auth } from '../../../firebase/index';
 import ListTodo from '../ListTodo/ListTodo';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';

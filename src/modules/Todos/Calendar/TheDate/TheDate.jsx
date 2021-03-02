@@ -25,7 +25,6 @@ export const TheDate = props => {
   }, []);
 
   const { currentDate } = props;
-  // eslint-disable-next-line no-unused-vars
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [, setDate] = useContext(DateContext);
 

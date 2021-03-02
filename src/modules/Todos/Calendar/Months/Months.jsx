@@ -16,7 +16,6 @@ export function Months({ currentDate, setCurrentDate }) {
   return (
     <S.Header>
       <S.HeaderCellAnlge onClick={prevMonth}>
-        {/* <FontAwesomeIcon icon={faAngleLeft} /> */}
         <LeftOutlined />
       </S.HeaderCellAnlge>
       <S.HeaderCell>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
-import { firestore } from '../../../lib/index';
+import { firestore } from '../../../firebase/index';
 import styled from 'styled-components';
 import { DateContext, TodoContext } from '../../../providers/DateProvider';
 import { List, Switch } from 'antd';
@@ -76,11 +76,7 @@ const ListTodo = () => {
   };
 
   const handleFilter = todos => {
-    // let filtered = todos.filter(todo => {
-    //   return !todo.done;
-    // });
-    // setTodos(filtered);
-    var filtered = firestore
+    firestore
       .collection('todos')
       .where('done', '==', true)
       .get()
@@ -99,34 +95,6 @@ const ListTodo = () => {
   };
 
   return (
-    // <>
-    //   <S.List>
-    //     {todos.map(todo => {
-    //       return (
-    //         <>
-    //           <Checkbox
-    //             defaultChecked={todo.done}
-    //             onClick={() => {
-    //               onChangeDone(todo);
-    //             }}
-    //           />
-    //           <S.ListItem
-    //             key={todo.id}
-    //             onClick={() => {
-    //               redirectClick(todo);
-    //             }}>
-    //             {todo.title}
-    //             {todo.done !== false ? (
-    //               <CheckCircleOutlined />
-    //             ) : (
-    //               <CloseCircleOutlined />
-    //             )}
-    //           </S.ListItem>
-    //         </>
-    //       );
-    //     })}
-    //   </S.List>
-    // </>
     <S.Container>
       <S.List>
         <List
@@ -134,12 +102,6 @@ const ListTodo = () => {
           renderItem={todo => (
             <>
               <List.Item key={todo.id}>
-                {/* <Checkbox
-                  defaultChecked={todo.done}
-                  onClick={() => {
-                    onChangeDone(todo);
-                  }}
-                /> */}
                 <Switch
                   checkedChildren={<CheckOutlined />}
                   unCheckedChildren={<CloseOutlined />}
@@ -158,11 +120,6 @@ const ListTodo = () => {
                     }}
                   />
                 </S.ListItem>
-                {/* {todo.done !== false ? (
-                  <CheckCircleOutlined />
-                ) : (
-                  <CloseCircleOutlined />
-                )} */}
                 <DeleteOutlined onClick={() => deleteTodo(todo.id)} />
               </List.Item>
             </>
@@ -186,7 +143,7 @@ const S = {
     width: 600px;
     max-height: 500px;
     margin: 20px auto;
-    background-color: rgb(243, 243, 243);
+    // background-color: rgb(243, 243, 243);
     @media (max-width: 767px) {
       overflow: scroll;
       max-width: 400px;

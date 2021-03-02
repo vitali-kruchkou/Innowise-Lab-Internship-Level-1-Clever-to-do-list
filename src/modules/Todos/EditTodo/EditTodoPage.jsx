@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { TodoContext } from '../../../providers/DateProvider';
 import { Form, Input } from 'antd';
-import { firestore } from '../../../lib';
+import { firestore } from '../../../firebase';
 import styled from 'styled-components';
 import { CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import toast, { Toaster } from 'react-hot-toast';
@@ -13,13 +13,6 @@ export function EditTodoPage() {
   const [title, setTitle] = useState(todo ? todo.title : '');
   const [description, setDescription] = useState(todo ? todo.description : '');
   const [, setSuccess] = useState();
-  // useEffect = () => {
-  //   firestore.collection('todos').doc(todo.id).update({
-  //     title: title,
-  //     description: description,
-  //     done: doc.data().done,
-  //   });
-  // };
 
   const editTodo = event => {
     event.preventDefault();

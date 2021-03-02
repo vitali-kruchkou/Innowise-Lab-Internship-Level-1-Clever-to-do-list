@@ -1,41 +1,32 @@
-/* eslint-disable no-unused-vars */
-import React, { useContext, useState } from 'react';
-
-import { auth, signInWithGoogle } from '../../../lib/index';
+/* eslint-disable react/no-unescaped-entities */
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { signInWithGoogle } from '../../../firebase/index';
+import { auth } from '../../../firebase/index';
 import styled from 'styled-components';
 import { Form, Input, Divider, Tooltip } from 'antd';
-import { UserOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Link, useHistory } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import {
+  UserOutlined,
+  GoogleOutlined,
+  InfoCircleOutlined,
+} from '@ant-design/icons';
 
-const SignUp = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const history = useHistory();
-  const createUserWithEmailAndPasswordHandler = async (
-    event,
-    email,
-    password,
-  ) => {
+
+  const signInWithEmailAndPasswordHandler = async (event, email, password) => {
     event.preventDefault();
-    setSuccess(toast.success('Good!'));
     try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password,
-      );
+      setTimeout(await auth.signInWithEmailAndPassword(email, password), 3000);
+      setSuccess(toast.success('Good!'));
     } catch (error) {
       setError(toast.error(error.message));
-
-      console.log(error.message);
+      console.error('Error signing in with password and email', error);
     }
-
-    setEmail('');
-    setPassword('');
-    setDisplayName('');
   };
 
   const onChangeHandler = event => {
@@ -45,8 +36,6 @@ const SignUp = () => {
       setEmail(value);
     } else if (name === 'userPassword') {
       setPassword(value);
-    } else if (name === 'displayName') {
-      setDisplayName(value);
     }
   };
 
@@ -55,7 +44,14 @@ const SignUp = () => {
       <S.Container>
         <S.Form>
           <Form>
-            <S.Title>Sign Up</S.Title>
+            <S.Title>Clever Todo List</S.Title>
+            <Divider />
+            <p>
+              Welcome to Clever Todo list.
+              <br />
+              Please login to your account
+            </p>
+            <Divider />
             {error !== null && (
               <>
                 <S.Error>{error.message}</S.Error>
@@ -64,32 +60,15 @@ const SignUp = () => {
             )}
             {success !== null && (
               <>
-                {console.log(success)}
                 <Toaster />
               </>
             )}
             <Form.Item>
               <Input
-                type="text"
-                name="displayName"
-                value={displayName}
-                placeholder="E.g: Faruq"
-                id="displayName"
-                onChange={event => onChangeHandler(event)}
-                prefix={<UserOutlined />}
-                suffix={
-                  <Tooltip title="Extra information">
-                    <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-                  </Tooltip>
-                }
-              />
-            </Form.Item>
-            <Form.Item>
-              <Input
                 type="email"
                 name="userEmail"
                 value={email}
-                placeholder="E.g: faruq123@gmail.com"
+                placeholder="Your email"
                 id="userEmail"
                 onChange={event => onChangeHandler(event)}
                 prefix={<UserOutlined />}
@@ -118,35 +97,33 @@ const SignUp = () => {
             <Form.Item>
               <S.Button>
                 <button
-                  className="SignUp"
+                  className="SignIn"
                   onClick={event => {
-                    createUserWithEmailAndPasswordHandler(
-                      event,
-                      email,
-                      password,
-                    );
-                    history.push('/calendar');
+                    signInWithEmailAndPasswordHandler(event, email, password);
                   }}>
-                  Sign up
+                  Login
                 </button>
               </S.Button>
               <S.Links>
-                <p> Already have an account?</p>
-                <Link to="/signIn">Sign in</Link>
+                <Link to="/signUp">
+                  <span className="SignUp">Sign up </span>
+                </Link>{' '}
+                <br />
+                <Link to="/passwordReset">
+                  <span>Forgot Password?</span>
+                </Link>
               </S.Links>
             </Form.Item>
-            <Divider plain>Or SignUp Using</Divider>
+            <Divider plain>Or Login Using</Divider>
             <Form.Item>
               <S.Button>
                 <button
+                  className="Google"
                   onClick={() => {
-                    try {
-                      signInWithGoogle();
-                    } catch (error) {
-                      console.error('Error signing in with Google', error);
-                    }
+                    signInWithGoogle();
                   }}>
-                  Sign In with Google
+                  <GoogleOutlined />
+                  <span>Google</span>
                 </button>
               </S.Button>
             </Form.Item>
@@ -157,7 +134,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
 
 const S = {
   Container: styled.div`
@@ -175,7 +152,7 @@ const S = {
   `,
   Button: styled.div`
     width: 200px;
-    & > .SignUp {
+    & > .SignIn {
       width: 200px;
       background: rgb(151, 11, 221);
       background: linear-gradient(
@@ -190,7 +167,7 @@ const S = {
       color: white;
       transition: 0.4s linear;
     }
-    & > .SignUp:hover {
+    & > .SignIn:hover {
       background-color: #e1dfdf;
       color: black;
       border: none;
@@ -223,10 +200,9 @@ const S = {
       border: none;
     }
   `,
-  Title: styled.div`
+  Title: styled.span`
     font-size: 30px;
     font-style: italic;
-    padding-bottom: 30px;
   `,
   Links: styled.div`
     display: flex;
@@ -237,11 +213,11 @@ const S = {
     & > Link {
       color: black;
     }
+    & > Link > .SignUp {
+      border: 1px solid black;
+    }
   `,
   Error: styled.span`
-    color: red;
-  `,
-  Toast: styled.div`
     color: red;
   `,
 };

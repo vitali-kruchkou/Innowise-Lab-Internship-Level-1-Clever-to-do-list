@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TodoContext } from '../../../providers/DateProvider';
-import { firestore } from '../../../lib/index';
+import { firestore } from '../../../firebase/index';
 import { useHistory } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';

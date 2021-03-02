@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
-import { firestore } from '../../../lib/index';
+import { firestore } from '../../../firebase/index';
 import { Form, Input } from 'antd';
 import styled from 'styled-components';
 import { DateContext } from '../../../providers/DateProvider';

@@ -1,7 +1,5 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState, useContext } from 'react';
-import { auth } from '../../../lib/index';
-// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
+import { auth } from '../../../firebase/index';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Form, Input } from 'antd';

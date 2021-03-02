@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import PasswordReset from './PasswordReset/PasswordReset';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
-// import UserProvider from "../providers/UserProvider";
+
 export default function Authentication() {
   return (
     <Switch>

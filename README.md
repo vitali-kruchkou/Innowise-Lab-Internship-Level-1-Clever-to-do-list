@@ -77,7 +77,7 @@ Used to add routing
 
 Used for style components
 
-### React--hot-toast
+### React-hot-toast
 
 Use to add Toast messages
 

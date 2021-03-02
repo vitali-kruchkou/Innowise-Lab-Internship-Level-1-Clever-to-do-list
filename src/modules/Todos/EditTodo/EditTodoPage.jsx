@@ -37,6 +37,9 @@ export function EditTodoPage() {
         setSuccess(toast.success('Update!'));
         console.log('Update!', res);
       });
+    setTimeout(() => {
+      history.push('/todo');
+    }, 2000);
   };
 
   const cancelEdit = () => {
@@ -49,12 +52,6 @@ export function EditTodoPage() {
       <S.Container>
         <Form>
           <S.Header>
-            <button
-              onClick={() => {
-                history.goBack();
-              }}>
-              {'<'}
-            </button>
             <h1>Edit Todo</h1>
           </S.Header>
           <Form.Item>

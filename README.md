@@ -52,7 +52,7 @@ PageContent.jsx
 )
 
 ## Database snapshot
-
+.
 └──todos
     └──todosId
         └──todo
@@ -91,25 +91,24 @@ Use to add scroll into calendar
 Used to format date
 
 ## Folders structure
-.
-└──src                            #Main folder for source code
-    ├──firebase                   #Contains firebase init script
-    ├──modules                    #Contains the main component of the application
-        ├──Authentication         #Contains the main components for authorization
-        ├──PasswordReset          #Password reset component
-        ├──SignIn                 #Sign In component
-        ├──SignUp                 #Sign Up component
-        └──Authentication.jsx
-    └──Todos                      #Contains the main component for a to-do list
-        ├──AddTodo                #Add todo component
-        ├──Calendar               #Calendar component
-        ├──EditTodo               #Edit todo component
-        ├──ListTodo               #List todo component
-        ├──ProfilePage            #Profile page component
-        └──Todo.jsx   
-    ├──providers                  #Folder for context  
-    ├──routes                     #Routing files  
-    └──index.js
+    └──src                            #Main folder for source code
+        ├──firebase                   #Contains firebase init script
+        ├──modules                    #Contains the main component of the application
+            ├──Authentication         #Contains the main components for authorization
+            ├──PasswordReset          #Password reset component
+            ├──SignIn                 #Sign In component
+            ├──SignUp                 #Sign Up component
+            └──Authentication.jsx
+        └──Todos                      #Contains the main component for a to-do list
+            ├──AddTodo                #Add todo component
+            ├──Calendar               #Calendar component
+            ├──EditTodo               #Edit todo component
+            ├──ListTodo               #List todo component
+            ├──ProfilePage            #Profile page component
+            └──Todo.jsx   
+        ├──providers                  #Folder for context  
+        ├──routes                     #Routing files  
+        └──index.js
 
 ## Styling
 

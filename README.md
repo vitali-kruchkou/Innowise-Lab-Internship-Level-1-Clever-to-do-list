@@ -52,19 +52,18 @@ PageContent.jsx
 )
 
 ## Database snapshot
-.
-└──todos
-    └──todosId
-        └──todo
-    	    ├──day
-            ├──description
-			├──done
-            ├──title
-            └──userId
-└──users
-	└──userId
-		├──displayName
-		└──email
+    └──todos
+        └──todosId
+            └──todo
+    	        ├──day
+                ├──description
+			    ├──done
+                ├──title
+                └──userId
+    └──users
+	    └──userId
+		    ├──displayName
+		    └──email
 
 ## Application stack
 

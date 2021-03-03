@@ -46,24 +46,26 @@ App is ready to be deployed!
 
 ### Component folder
 
-Component folder usually contains 1 files: .jsx; there files and the folder are named with component name (f.e.
+Component folder usually contains 2 files: .jsx and .js ; there files and the folder are named with component name (f.e.
 PageContent /
 PageContent.jsx
+StyledPageContent.js
 )
 
 ## Database snapshot
+
     └──todos
         └──todosId
             └──todo
     	    ├──day
                 ├──description
-		    ├──done
+    	    ├──done
                 ├──title
                 └──userId
     └──users
-	    └──userId
-		    ├──displayName
-		    └──email
+        └──userId
+    	    ├──displayName
+    	    └──email
 
 ## Application stack
 
@@ -89,7 +91,12 @@ Use to add scroll into calendar
 
 Used to format date
 
+### React-app-rewire-alias
+
+Used to add alias in our application
+
 ## Folders structure
+
     └──src                            #Main folder for source code
         ├──firebase                   #Contains firebase init script
         ├──modules                    #Contains the main component of the application
@@ -104,9 +111,9 @@ Used to format date
             ├──EditTodo               #Edit todo component
             ├──ListTodo               #List todo component
             ├──ProfilePage            #Profile page component
-            └──Todo.jsx   
-        ├──providers                  #Folder for context  
-        ├──routes                     #Routing files  
+            └──Todo.jsx
+        ├──providers                  #Folder for context
+        ├──routes                     #Routing files
         └──index.js
 
 ## Styling

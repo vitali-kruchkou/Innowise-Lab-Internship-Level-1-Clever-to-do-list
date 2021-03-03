@@ -4,10 +4,10 @@ import ProfilePage from './ProfilePage/ProfilePage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import EditTodo from './EditTodo/EditTodo';
-import { AddTodoPage } from './AddTodo/AddTodoPage';
+import AddTodoPage from './AddTodo/AddTodoPage';
 import EditTodoPage from './EditTodo/EditTodoPage';
 
-export const Todo = () => {
+const Todo = () => {
   return (
     <>
       <Switch>

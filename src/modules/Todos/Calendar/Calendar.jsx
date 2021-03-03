@@ -1,40 +1,17 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Months } from './Months/Months.jsx';
-import { TheDate } from './TheDate/TheDate';
+import Months from './Months/Months.jsx';
+import TheDate from './TheDate/TheDate';
+import Style from './StyledCalendar';
 
-export default function Calendar() {
+const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   return (
-    <S.Calendar>
+    <Style.Calendar>
       <Months currentDate={currentDate} setCurrentDate={setCurrentDate} />
       <TheDate currentDate={currentDate} />
-    </S.Calendar>
+    </Style.Calendar>
   );
-}
-
-const S = {
-  Calendar: styled.div`
-    display: block;
-    position: relative;
-    max-width: 750px;
-    margin: 0 auto;
-    border-radius: 20px;
-    height: auto;
-    margin: 30px auto;
-    @media (max-width: 768px) {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    @media (max-width: 575px) {
-      max-width: 400px;
-      max-height: 200px;
-      margin: 0 auto;
-      margin-top: 20px;
-      & > div {
-        font-size: 10px;
-      }
-    }
-  `,
 };
+
+export default Calendar;

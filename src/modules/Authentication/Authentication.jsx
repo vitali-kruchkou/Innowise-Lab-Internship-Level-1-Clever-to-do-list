@@ -4,7 +4,7 @@ import PasswordReset from './PasswordReset/PasswordReset';
 import SignIn from './SignIn/SignIn';
 import SignUp from './SignUp/SignUp';
 
-export default function Authentication() {
+const Authentication = () => {
   return (
     <Switch>
       <Route path="/signIn" component={SignIn} />
@@ -13,4 +13,6 @@ export default function Authentication() {
       <Redirect from="/" to="/signIn" />
     </Switch>
   );
-}
+};
+
+export default Authentication;

@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import config from './firebaseConfig';
-
+import toast from 'react-hot-toast';
 // Check if we have already initialized an app
 const firebaseApp = !firebase.apps.length
   ? firebase.initializeApp(config)
@@ -50,4 +51,125 @@ const getUserDocument = async uid => {
   } catch (error) {
     console.error('Error fetching user', error);
   }
+};
+
+export const resetPassword = (event, email) => {
+  event.preventDefault();
+  auth
+    .sendPasswordResetEmail(email)
+    .then(toast.success('Please check your email'))
+    .catch(() => {
+      toast.error('Please enter a valid email');
+    });
+};
+
+export const signInEmailAndPassword = async (event, email, password) => {
+  event.preventDefault();
+  try {
+    await auth.signInWithEmailAndPassword(email, password);
+    toast.success('Good!');
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const signUpEmailAndPassword = async (event, email, password) => {
+  event.preventDefault();
+  try {
+    await auth.createUserWithEmailAndPassword(email, password);
+    toast.success('Create account');
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
+
+export const addTodoInList = (event, user, title, description, day) => {
+  event.preventDefault();
+  firestore.collection('todos').add({
+    userId: user.uid,
+    title: title,
+    description: description,
+    day: day,
+    done: false,
+  });
+};
+
+export const editTodoInList = (event, todo, setTodo, title, description) => {
+  event.preventDefault();
+  firestore.collection('todos').doc(todo.id).update({
+    title: title,
+    description: description,
+  });
+  firestore
+    .collection('todos')
+    .doc(todo.id)
+    .get()
+    .then(doc => {
+      if (doc.exists)
+        setTodo({
+          id: doc.id,
+          title: doc.data().title,
+          description: doc.data().description,
+          done: doc.data().done,
+        });
+    })
+    .then(() => {
+      toast.success('Update!');
+    });
+};
+
+export const deleteTodoInList = id => {
+  firestore
+    .collection('todos')
+    .doc(id)
+    .delete()
+    .then(() => {
+      toast.success('Deleted!');
+    });
+};
+
+export const updateDone = (todo, isDone) => {
+  firestore.collection('todos').doc(todo.id).update({
+    done: isDone,
+  });
+};
+
+export const filterCompleteTodo = () => {
+  firestore
+    .collection('todos')
+    .where('done', '==', true)
+    .get()
+    .then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        doc.ref
+          .delete()
+          .then(() => {
+            toast.success('Document successfully deleted!');
+          })
+          .catch(error => {
+            toast.error('Error removing document: ' + error);
+          });
+      });
+    });
+};
+
+export const unsubscribeFirestore = (user, day, setTodos) => {
+  firestore
+    .collection('todos')
+    .where('userId', '==', user.uid)
+    .where('day', '==', day)
+    .onSnapshot(snapshot => {
+      setTodos(
+        snapshot.docs.map(doc => {
+          return {
+            id: doc.id,
+            date: day,
+            title: doc.data().title,
+            description: doc.data().description,
+            done: doc.data().done,
+            datatime: new Date(),
+          };
+        }),
+      );
+    });
 };

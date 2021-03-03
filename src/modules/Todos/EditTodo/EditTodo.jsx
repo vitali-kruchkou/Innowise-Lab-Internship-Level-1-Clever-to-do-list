@@ -1,33 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { TodoContext } from '../../../providers/DateProvider';
-import { firestore } from '../../../firebase/index';
+import { TodoContext } from '@providers/DateProvider';
 import { useHistory } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+import Style from './StyledEditTodo';
+import { deleteTodoInList, updateDone } from '@firebaseConfig';
 
-function EditTodo() {
+const EditTodo = () => {
   const [todo] = useContext(TodoContext);
   const [isDone, setDone] = useState(todo.done);
   const history = useHistory();
-  const [, setSuccess] = useState();
 
   useEffect(() => {
-    firestore.collection('todos').doc(todo.id).update({
-      done: isDone,
-    });
+    updateDone(todo, isDone);
   });
 
   const deleteTodo = id => {
-    firestore
-      .collection('todos')
-      .doc(id)
-      .delete()
-      .then(res => {
-        console.log('Deleted!', res);
-      });
-    setSuccess(toast.success('Deleted!'));
+    deleteTodoInList(id);
     setTimeout(() => {
       history.goBack();
     }, 2000);
@@ -38,8 +28,8 @@ function EditTodo() {
   return (
     <>
       <Toaster />
-      <S.Container>
-        <S.Header>
+      <Style.ContainerRoot>
+        <Style.HeaderRoot>
           <button
             onClick={() => {
               history.push('/');
@@ -47,91 +37,27 @@ function EditTodo() {
             {'<'}
           </button>
           <h1>Todo</h1>
-        </S.Header>
-        <S.Main>
+        </Style.HeaderRoot>
+        <Style.Main>
           <h2> {todo.title}</h2>
           <p>{todo.description}</p>
-        </S.Main>
-        <S.Buttons>
+        </Style.Main>
+        <Style.ButtonsRoot>
           <button onClick={() => deleteTodo(todo.id)}>
             <DeleteOutlined />
           </button>
           <button onClick={() => history.push('/edittodo')}>
             <EditOutlined />
           </button>
-          <S.CheckboxTrue>
+          <Style.CheckboxTrue>
             <Checkbox defaultChecked={todo.done} onChange={onChange}>
               Complete
             </Checkbox>
-          </S.CheckboxTrue>
-        </S.Buttons>
-      </S.Container>
+          </Style.CheckboxTrue>
+        </Style.ButtonsRoot>
+      </Style.ContainerRoot>
     </>
   );
-}
+};
 
 export default EditTodo;
-
-const S = {
-  Container: styled.div`
-    width: 400px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    @media (max-width: 760px) {
-      width: 300px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%);
-    }
-  `,
-  Header: styled.div`
-    width: 300px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    & > h1 {
-      margin: 0 auto;
-    }
-    & > button {
-      padding-right: 20px;
-      margin-left: 10px;
-      width: 20px;
-      border: none;
-      background-color: #f9f6f6;
-      border-radius: 40px 40px 40px 40px;
-    }
-  `,
-  Buttons: styled.div`
-    width: 300px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    & > button {
-      width: 50px;
-      background-color: white;
-      border: 1px solid gray;
-      border-radius: 40px 40px 40px 40px;
-    }
-  `,
-  Main: styled.div`
-    & > p {
-      color: #5c5c5c;
-    }
-  `,
-  CheckboxTrue: styled.div`
-    border-radius: 40px 40px 40px 40px;
-    width: 120px;
-    background-color: #73fa85;
-  `,
-  CheckboxFalse: styled.div`
-    border-radius: 40px 40px 40px 40px;
-    width: 120px;
-    background-color: #f95056;
-  `,
-};

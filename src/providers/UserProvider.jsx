@@ -1,9 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { auth, generateUserDocument } from '../firebase';
+import { auth, generateUserDocument } from '@firebaseConfig';
 
 export const UserContext = createContext({ user: null });
 
-export function UserProvider(props) {
+const UserProvider = props => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -16,6 +16,6 @@ export function UserProvider(props) {
   return (
     <UserContext.Provider value={user}>{props.children}</UserContext.Provider>
   );
-}
+};
 
 export default UserProvider;

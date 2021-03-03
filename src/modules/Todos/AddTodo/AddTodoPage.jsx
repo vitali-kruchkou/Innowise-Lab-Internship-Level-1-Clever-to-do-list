@@ -1,32 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
+import Style from './StyledAddTodo';
 import AddTodo from './AddTodo';
 
-export const AddTodoPage = () => {
+const AddTodoPage = () => {
   return (
-    <S.Container>
+    <Style.ContainerRoot>
       <div>
         <AddTodo />
       </div>
-    </S.Container>
+    </Style.ContainerRoot>
   );
 };
 
 export default AddTodoPage;
-
-const S = {
-  Container: styled.div`
-    width: 200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    // position: absolute;
-    // top: 0;
-    // left: 50%;
-    // margin-right: -50%;
-    // transform: translate(-50%, 0);
-  `,
-};

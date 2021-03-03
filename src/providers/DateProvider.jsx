@@ -5,6 +5,7 @@ export const TodoContext = createContext({ todo: null });
 export const DateContext = createContext();
 
 const today = format(new Date(), 'dd MM yyyy');
+
 const DateProvider = props => {
   const [date, setDate] = useState(today);
   const [todo, setTodo] = useState(null);

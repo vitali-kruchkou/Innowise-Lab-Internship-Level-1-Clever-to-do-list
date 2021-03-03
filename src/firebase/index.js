@@ -173,3 +173,7 @@ export const unsubscribeFirestore = (user, day, setTodos) => {
       );
     });
 };
+
+export const SignOut = () => {
+  auth.signOut();
+};

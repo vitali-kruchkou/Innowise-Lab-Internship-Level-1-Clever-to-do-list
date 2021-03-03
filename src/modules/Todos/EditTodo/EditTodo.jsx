@@ -25,17 +25,21 @@ const EditTodo = () => {
   const onChange = () => {
     setDone(!isDone);
   };
+
+  const goBack = () => {
+    history.push('/');
+  };
+
+  const goEdit = () => {
+    history.push('/edittodo');
+  };
+
   return (
     <>
       <Toaster />
       <Style.ContainerRoot>
         <Style.HeaderRoot>
-          <button
-            onClick={() => {
-              history.push('/');
-            }}>
-            {'<'}
-          </button>
+          <button onClick={goBack}>{'<'}</button>
           <h1>Todo</h1>
         </Style.HeaderRoot>
         <Style.Main>
@@ -46,7 +50,7 @@ const EditTodo = () => {
           <button onClick={() => deleteTodo(todo.id)}>
             <DeleteOutlined />
           </button>
-          <button onClick={() => history.push('/edittodo')}>
+          <button onClick={goEdit}>
             <EditOutlined />
           </button>
           <Style.CheckboxTrue>

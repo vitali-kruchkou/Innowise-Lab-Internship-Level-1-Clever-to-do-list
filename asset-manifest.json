@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/css/main.cc050bc7.chunk.css",
-    "main.js": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/main.fa02a316.chunk.js",
-    "main.js.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/main.fa02a316.chunk.js.map",
+    "main.js": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/main.eba978cb.chunk.js",
+    "main.js.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/main.eba978cb.chunk.js.map",
     "runtime-main.js": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/runtime-main.436214f9.js",
     "runtime-main.js.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/runtime-main.436214f9.js.map",
     "static/css/2.1e58ee36.chunk.css": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/css/2.1e58ee36.chunk.css",
-    "static/js/2.d134e532.chunk.js": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.d134e532.chunk.js",
-    "static/js/2.d134e532.chunk.js.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.d134e532.chunk.js.map",
+    "static/js/2.8d933ff9.chunk.js": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.8d933ff9.chunk.js",
+    "static/js/2.8d933ff9.chunk.js.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.8d933ff9.chunk.js.map",
     "index.html": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/index.html",
     "static/css/2.1e58ee36.chunk.css.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/css/2.1e58ee36.chunk.css.map",
     "static/css/main.cc050bc7.chunk.css.map": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/css/main.cc050bc7.chunk.css.map",
-    "static/js/2.d134e532.chunk.js.LICENSE.txt": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.d134e532.chunk.js.LICENSE.txt"
+    "static/js/2.8d933ff9.chunk.js.LICENSE.txt": "/Innowise-Lab-Internship-Level-1-Clever-to-do-list/static/js/2.8d933ff9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.436214f9.js",
     "static/css/2.1e58ee36.chunk.css",
-    "static/js/2.d134e532.chunk.js",
+    "static/js/2.8d933ff9.chunk.js",
     "static/css/main.cc050bc7.chunk.css",
-    "static/js/main.fa02a316.chunk.js"
+    "static/js/main.eba978cb.chunk.js"
   ]
 }
